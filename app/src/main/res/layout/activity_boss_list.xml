@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".BossListActivity"
     android:orientation="vertical">
-
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/logo" />
+        android:layout_height="wrap_content"
+        android:text="My Bosses"
+        android:gravity="center"
+        android:textSize="50dp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHome"
+        android:id="@+id/rvBosses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_marginTop="50dp">
     </android.support.v7.widget.RecyclerView>
-
 </LinearLayout>
