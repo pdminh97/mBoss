@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import mboss.tsm.Utility.ItemClickListener;
 import mboss.tsm.mboss.BossListActivity;
-import mboss.tsm.mboss.DiaryListActivity;
+import mboss.tsm.mboss.LoginActivity;
 import mboss.tsm.mboss.MainActivity;
 import mboss.tsm.mboss.R;
+import mboss.tsm.mboss.RegisterActivity;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
 
@@ -48,10 +49,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                         intent = new Intent(context, BossListActivity.class);
                         break;
                     case 2:
-                        intent = new Intent(context, DiaryListActivity.class);
+                        intent = new Intent(context, RegisterActivity.class);
                         break;
                     case 3:
-                        intent = new Intent(context, BossListActivity.class);
+                        intent = new Intent(context, LoginActivity.class);
                         break;
                     default: intent = new Intent(context, MainActivity.class);
                         break;

@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitBuilder {
     private static Retrofit retrofit;
 
-    public static Retrofit getBulder(String baseURL) {
+    public static Retrofit getBuilder(String baseURL) {
         if(retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build();
         }

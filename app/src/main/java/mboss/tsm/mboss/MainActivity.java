@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.rvHome);
-        int numberOfColumns = 2;
+        int numberOfColumns = 1;
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         HomeRecyclerViewAdapter adapter = new HomeRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
