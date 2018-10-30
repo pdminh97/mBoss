@@ -4,62 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/fragment_place"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/logo" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHome"
+    <!--<fragment-->
+        <!--android:name="mboss.tsm.fragment.MyBossesFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/fragment_place" />-->
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="10dp"
-        android:layout_marginTop="50dp"
-        >
-    </android.support.v7.widget.RecyclerView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="#42b0f4">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Home"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:textColor="@android:color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="My Bosses"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:textColor="@android:color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Dịch Vụ"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:textColor="@android:color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Sen"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:itemTextColor="@color/navigation_content_color"
+        app:itemIconTint="@color/navigation_content_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation" />
 
 </LinearLayout>
