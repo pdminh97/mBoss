@@ -1,6 +1,31 @@
 <resources>
     <string name="app_name">mBoss</string>
+<<<<<<< HEAD
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+=======
+    <string name="FACEBOOK_APP_ID">564619237325435</string>
+    <string name="ak_login_protocol_scheme">ak564619237325435</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">af2a815d226862b4ddf97e2870837877</string>
+    <string name="backtologin">Quay Lại</string>
+    <string name="phone_number_login">Đăng nhập bằng số điện thoại</string>
+    <string name="mail_login">Đăng nhập bằng Mail</string>
+    <string name="get_code">Lấy mã xác nhận</string>
+    <string name="pet_diary">Diary</string>
+    <string name="pet_list">My Bosses</string>
+    <string name="clinic_service">Service</string>
+    <string name="user_profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="profile_fragment">Hello Profile</string>
+    <string name="my_bosses_fragment">Hello My bosses</string>
+    <string name="save">Save</string>
+    <string name="logout">Log out</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_infor_user">Change Information</string>
+
+>>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
 </resources>

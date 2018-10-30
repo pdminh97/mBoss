@@ -4,29 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/fragment_place"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/logo" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="10dp"
-        android:layout_marginTop="50dp"
-        >
-    </android.support.v7.widget.RecyclerView>
+    <!--<fragment-->
+        <!--android:name="mboss.tsm.fragment.MyBossesFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/fragment_place" />-->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+<<<<<<< HEAD
         app:menu="@menu/bottom_nav_items"
         app:itemIconTint="@color/navigation_color"
         app:itemTextColor="@color/navigation_color"
@@ -71,5 +70,12 @@
             <!--android:textSize="15dp"-->
             <!--android:textColor="@android:color/white"/>-->
     <!--</LinearLayout>-->
+=======
+        android:background="?android:attr/windowBackground"
+        app:itemTextColor="@color/navigation_content_color"
+        app:itemIconTint="@color/navigation_content_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation" />
+>>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
 
 </LinearLayout>

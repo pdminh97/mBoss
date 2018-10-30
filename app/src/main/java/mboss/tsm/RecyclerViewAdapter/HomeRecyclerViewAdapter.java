@@ -10,12 +10,16 @@ import android.widget.TextView;
 
 import mboss.tsm.Utility.ItemClickListener;
 import mboss.tsm.mboss.BossListActivity;
-import mboss.tsm.mboss.LoginActivity;
+import mboss.tsm.Profile.LoginActivity;
+import mboss.tsm.mboss.DiaryActivity;
 import mboss.tsm.mboss.MainActivity;
 import mboss.tsm.mboss.R;
+<<<<<<< HEAD
 import mboss.tsm.mboss.RegisterActivity;
 import mboss.tsm.mboss.ServiceActivity;
 import mboss.tsm.mboss.ServiceDetailActivity;
+=======
+>>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
 
@@ -51,7 +55,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                         intent = new Intent(context, ServiceActivity.class);
                         break;
                     case 2:
+<<<<<<< HEAD
                         intent = new Intent(context, ServiceDetailActivity.class);
+=======
+                        intent = new Intent(context, DiaryActivity.class);
+>>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
                         break;
                     case 3:
                         intent = new Intent(context, LoginActivity.class);
