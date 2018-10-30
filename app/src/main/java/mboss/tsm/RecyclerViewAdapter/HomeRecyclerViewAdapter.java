@@ -14,6 +14,8 @@ import mboss.tsm.mboss.LoginActivity;
 import mboss.tsm.mboss.MainActivity;
 import mboss.tsm.mboss.R;
 import mboss.tsm.mboss.RegisterActivity;
+import mboss.tsm.mboss.ServiceActivity;
+import mboss.tsm.mboss.ServiceDetailActivity;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
 
@@ -46,10 +48,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                         intent = new Intent(context, BossListActivity.class);
                         break;
                     case 1:
-                        intent = new Intent(context, BossListActivity.class);
+                        intent = new Intent(context, ServiceActivity.class);
                         break;
                     case 2:
-                        intent = new Intent(context, RegisterActivity.class);
+                        intent = new Intent(context, ServiceDetailActivity.class);
                         break;
                     case 3:
                         intent = new Intent(context, LoginActivity.class);
