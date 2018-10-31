@@ -38,7 +38,7 @@ public class ServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_service, container, false);
 
-        serviceRepository = new ServiceRepository(getActivity());
+        serviceRepository = new ServiceRepository(view);
         serviceRepository.getTopSevice();
 
         initData();

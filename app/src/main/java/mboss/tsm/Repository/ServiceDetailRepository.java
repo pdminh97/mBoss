@@ -28,10 +28,20 @@ import retrofit2.Response;
 public class ServiceDetailRepository {
     private IService service;
     private Context context;
+    private List<Comment> comments;
+    private CommentRecyclerViewAdapter commentAdapter;
 
     public ServiceDetailRepository(Context context) {
         this.context = context;
         service = APIUtil.getIService();
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public CommentRecyclerViewAdapter getCommentAdapter() {
+        return commentAdapter;
     }
 
     public void getClinicByServiceID(final Service serviceDTO) {
@@ -84,11 +94,11 @@ public class ServiceDetailRepository {
             @Override
            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if(response.isSuccessful()) {
-                    List<Comment> comments = response.body();
-                    CommentRecyclerViewAdapter adapter = new CommentRecyclerViewAdapter(comments);
+                    comments = response.body();
+                    commentAdapter = new CommentRecyclerViewAdapter(comments);
                     RecyclerView recyclerView = ((ServiceDetailActivity) context).findViewById(R.id.rvComment);
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(commentAdapter);
 
                 } else {
                     Log.e("Error", response.code() + "");

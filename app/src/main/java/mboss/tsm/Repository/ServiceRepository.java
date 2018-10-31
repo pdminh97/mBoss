@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class ServiceRepository {
     private RecyclerView rvServices;
     private ServicesRecyclerViewAdapter adapter;
 
-    public ServiceRepository(Activity parentActivity) {
+    public ServiceRepository(View view) {
         service = APIUtil.getIService();
-        this.context = parentActivity;
-        rvServices =  parentActivity.findViewById(R.id.rvServices);
-        rvServices.setLayoutManager(new LinearLayoutManager());
+        this.context = view.getContext();
+        rvServices = view.findViewById(R.id.rvServices);
+        rvServices.setLayoutManager(new LinearLayoutManager(context));
     }
 
     public void getTopSevice() {

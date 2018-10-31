@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="mboss.tsm.mboss">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -24,6 +26,10 @@
         <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name="com.yalantis.ucrop.UCropActivity" />
         <activity android:name="mboss.tsm.Profile.RegisterInforUserActivity" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDZFo7cHEpn209ftXBweNTU76xre0cAbCA" />
 
         <meta-data
             android:name="com.facebook.accountkit.ApplicationName"

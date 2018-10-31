@@ -9,6 +9,12 @@ public class Comment {
     @SerializedName("CommentID")
     @Expose
     private int CommentID ;
+    @SerializedName("AccountID")
+    @Expose
+    private int AccountID;
+    @SerializedName("ClinicID")
+    @Expose
+    private int ClinicID;
     @SerializedName("AccountName")
     @Expose
     private String AccountName;
@@ -21,6 +27,22 @@ public class Comment {
     @SerializedName("Rating")
     @Expose
     private double Rating;
+
+    public int getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(int accountID) {
+        AccountID = accountID;
+    }
+
+    public int getClinicID() {
+        return ClinicID;
+    }
+
+    public void setClinicID(int clinicID) {
+        ClinicID = clinicID;
+    }
 
     public int getCommentID() {
         return CommentID;

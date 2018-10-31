@@ -23,6 +23,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         this.comments = comments;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
