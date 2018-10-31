@@ -1,10 +1,8 @@
 package mboss.tsm.mboss;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,17 +14,19 @@ import android.view.View;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 >>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
+=======
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+>>>>>>> parent of 97d4158... Update homefragment and alarm
 
-
-import mboss.tsm.HomeFragment.DiaryFragment;
-import mboss.tsm.HomeFragment.MyBossesFragment;
-import mboss.tsm.HomeFragment.ProfileFragment;
+import mboss.tsm.RecyclerViewAdapter.HomeRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 <<<<<<< HEAD
     private BottomNavigationView mBottomNav;
 =======
 
+<<<<<<< HEAD
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,11 +60,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 >>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
+=======
+>>>>>>> parent of 97d4158... Update homefragment and alarm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         RecyclerView recyclerView = findViewById(R.id.rvHome);
         int numberOfColumns = 2;
@@ -87,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_place, new MyBossesFragment()).commit();
 >>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
+=======
+        RecyclerView recyclerView = findViewById(R.id.rvHome);
+        int numberOfColumns = 1;
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        HomeRecyclerViewAdapter adapter = new HomeRecyclerViewAdapter(this);
+        recyclerView.setAdapter(adapter);
+>>>>>>> parent of 97d4158... Update homefragment and alarm
     }
-
-    public void clickToViewProfile(View view) {
-
-    }
-
-
 }

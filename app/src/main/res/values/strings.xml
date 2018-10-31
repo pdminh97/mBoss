@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">mBoss</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -28,4 +29,6 @@
     <string name="change_infor_user">Change Information</string>
 
 >>>>>>> 97d415886366daafc65fceb0afe1ec7e3769494f
+=======
+>>>>>>> parent of 97d4158... Update homefragment and alarm
 </resources>

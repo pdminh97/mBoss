@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "871586800367",
-    "firebase_url": "https://otpsms-d1220.firebaseio.com",
-    "project_id": "otpsms-d1220",
-    "storage_bucket": "otpsms-d1220.appspot.com"
+    "project_number": "1063717971499",
+    "firebase_url": "https://verifyphone-567e9.firebaseio.com",
+    "project_id": "verifyphone-567e9",
+    "storage_bucket": "verifyphone-567e9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:871586800367:android:ef0cb711dddfd99a",
+        "mobilesdk_app_id": "1:1063717971499:android:ef0cb711dddfd99a",
         "android_client_info": {
           "package_name": "mboss.tsm.mboss"
         }
       },
       "oauth_client": [
         {
-          "client_id": "871586800367-4msvt87kb48aatk8kd17b2biq5bd6ir0.apps.googleusercontent.com",
+          "client_id": "1063717971499-8abt5nj2ses201ogp1j5o0c08mbjl1fd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "mboss.tsm.mboss",
-            "certificate_hash": "9ec87c4fa848c25f79d310e2e435e2f294cb411b"
+            "certificate_hash": "aabb557cb90ae7c7e11760e348d2b62654ff22bb"
           }
         },
         {
-          "client_id": "871586800367-k96oaqqg3msui3bjfr8egtukt54h240k.apps.googleusercontent.com",
+          "client_id": "1063717971499-nkb11rmeopahd4kjgu0bo227pf2b07j2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyADNQcBApaQxNZvD6PJEm6ozUT5D4v_VPA"
+          "current_key": "AIzaSyCfUwILdmEREGUbQejalU-lUk_wFZ0EDqY"
         }
       ],
       "services": {
@@ -40,51 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "871586800367-k96oaqqg3msui3bjfr8egtukt54h240k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:871586800367:android:37b9141eef933b0c",
-        "android_client_info": {
-          "package_name": "seminar.sonnguyen.otpsms"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "871586800367-1apa917sj12mkhrf7u8d054g1280j5s2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "seminar.sonnguyen.otpsms",
-            "certificate_hash": "9ec87c4fa848c25f79d310e2e435e2f294cb411b"
-          }
-        },
-        {
-          "client_id": "871586800367-k96oaqqg3msui3bjfr8egtukt54h240k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyADNQcBApaQxNZvD6PJEm6ozUT5D4v_VPA"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "871586800367-k96oaqqg3msui3bjfr8egtukt54h240k.apps.googleusercontent.com",
+              "client_id": "1063717971499-nkb11rmeopahd4kjgu0bo227pf2b07j2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
