@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_pet_list"
+        android:icon="@mipmap/pawprint"
+        android:title="@string/pet_list"
+        />
+
+    <item
+        android:id="@+id/navigation_diary"
+        android:icon="@mipmap/diary_img"
+        android:title="@string/pet_diary" />
+
+    <item
+        android:id="@+id/navigation_service"
+        android:icon="@mipmap/clinic"
+        android:title="@string/clinic_service" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@mipmap/profile"
+        android:title="@string/user_profile" />
+
+</menu>

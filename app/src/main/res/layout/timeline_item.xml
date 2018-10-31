@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- the circular icon on the left -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/com_accountkit_device"
+        android:tint="@android:color/black"
+        android:layout_marginRight="24dp"
+        android:padding="4dp"/>
+
+    <!-- the blue line -->
+    <FrameLayout
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:id="@+id/item_line"
+        android:background="@color/colorAccent">
+
+        <!-- the semi transparent circle on the line -->
+        <View
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:background="@drawable/com_accountkit_check_sms"/>
+
+    </FrameLayout>
+
+    <!-- views at the right of the blue line -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingBottom="32dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_time"
+            android:text="31/10/2018"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/com_accountkit_code_fb"
+                android:layout_marginRight="5dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/com_accountkit_code_fb"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_subtitle"
+            android:text="Hom Nay Dc Di Da 4 Vui Hoa"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"/>
+
+        <!-- other views -->
+
+    </LinearLayout>
+</LinearLayout>
