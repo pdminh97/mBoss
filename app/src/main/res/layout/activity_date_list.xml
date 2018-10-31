@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DateListActivity"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/txtTitleCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"></android.support.v7.widget.RecyclerView>
+
+        <ImageButton
+            android:id="@+id/imCreateDate"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:src="@mipmap/create" />
+    </FrameLayout>
+</LinearLayout>
