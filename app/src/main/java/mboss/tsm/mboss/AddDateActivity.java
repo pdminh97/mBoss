@@ -122,7 +122,6 @@ public class AddDateActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(hourOfDay, minute);
-//                        Log.e("" hourOfDay);
                         SimpleDateFormat simpleTimeformat = new SimpleDateFormat("hh:mm");
                         timePicker.setText(simpleTimeformat.format(calendar.getTime()));
                     }

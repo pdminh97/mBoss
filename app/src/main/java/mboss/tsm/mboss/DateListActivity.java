@@ -44,7 +44,9 @@ public class DateListActivity extends AppCompatActivity {
         boolean check = intent.getExtras().getBoolean("CHECK");
         bossName = intent.getExtras().getString("BossName");
         on_off = (Switch) findViewById(R.id.on_off_notification);
-        if(check) on_off.setChecked(true);
+        if(check) {
+            on_off.isChecked();
+        }
         title=findViewById(R.id.txtTitleCategory);
         imCreate = (ImageButton) findViewById(R.id.imCreateDate);
         mRecyclerView = findViewById(R.id.rvDate);
@@ -56,7 +58,7 @@ public class DateListActivity extends AppCompatActivity {
     private  void iniatialData(){
         Intent intent = getIntent();
         bossCategory = (Category) intent.getSerializableExtra(BossDetailFragment.TITLE);
-        title.setText(bossCategory.getName());
+        title.setText("Thông báo");
         BossActivityRepository bossActivityRepository= new BossActivityRepository(DateListActivity.this);
         bossActivityRepository.getAllDate(new BossActivityRepository.getDataCallBack() {
             @Override

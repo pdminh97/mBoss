@@ -6,63 +6,63 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import mboss.tsm.Model.Service;
-import mboss.tsm.Repository.ServiceDetailRepository;
+import mboss.tsm.Model.Tag;
 import mboss.tsm.Utility.ItemClickListener;
 import mboss.tsm.mboss.R;
 
-public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRecyclerViewAdapter.ViewHolder> {
-    private List<Service> services;
+public class TagListRecyclerViewAdapter extends RecyclerView.Adapter<TagListRecyclerViewAdapter.ViewHolder> {
+    private List<Tag> tags = new ArrayList<>();
     private Context context;
 
-    public ServicesRecyclerViewAdapter(List<Service> services, Context context) {
-        this.services = services;
+    public TagListRecyclerViewAdapter(Context context) {
+        tags.add(new Tag("cat_avt", "Con Cọp Con"));
+        tags.add(new Tag("dog_avt", "Con Cún To"));
         this.context = context;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.service_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.tag_list_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.txtServiceName.setText(services.get(i).getServiceName());
-        viewHolder.txtClinicName.setText(services.get(i).getClinicName());
-        viewHolder.txtRating.setRating((float)services.get(i).getRating());
-
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+        viewHolder.avatar.setImageResource(context.getResources().getIdentifier(tags.get(i).getAvatar(), "drawable", context.getPackageName()));
+        viewHolder.name.setText(tags.get(i).getName());
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                ServiceDetailRepository repository = new ServiceDetailRepository(context);
-                repository.getClinicByServiceID(services.get(position));
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(services == null) return 0; return services.size();
+        if(tags != null) {
+            return tags.size();
+        } else {
+            return 0;
+        }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txtServiceName;
-        private TextView txtClinicName;
-        private RatingBar txtRating;
-
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private ImageView avatar;
+        private TextView name;
         private ItemClickListener itemClickListener;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtServiceName = itemView.findViewById(R.id.txtServiceName);
-            txtClinicName = itemView.findViewById(R.id.txtClinicName);
-            txtRating = itemView.findViewById(R.id.txtRating);
+            avatar = itemView.findViewById(R.id.ivAvatar);
+            name = itemView.findViewById(R.id.txtTagName);
             itemView.setOnClickListener(this);
         }
 
@@ -75,6 +75,4 @@ public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRe
             itemClickListener.onItemClick(v, getAdapterPosition());
         }
     }
-
-
 }

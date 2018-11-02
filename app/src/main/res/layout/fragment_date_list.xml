@@ -7,27 +7,21 @@
     tools:context="mboss.tsm.Fragment.DateListFragment"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:background="#0083b0"
-        android:id="@+id/txtTitleCategory"
-        android:textColor="#fff"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#fff">
+        android:background="#0083b0"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="33dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:paddingLeft="20dp"
-            android:textColor="#1e98e2"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:id="@+id/txtTitleCategory"
+            android:textColor="#fff"
+            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/btn_delete_bosscategory"
             android:layout_width="wrap_content"
@@ -35,8 +29,10 @@
             android:src="@mipmap/delete_date"
             android:layout_marginLeft="15dp"
             android:background="@null"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"/>
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
