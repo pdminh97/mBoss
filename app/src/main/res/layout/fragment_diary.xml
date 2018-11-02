@@ -74,82 +74,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Hôm nay hoàng thượng của bạn thế nào?"
-                        android:id="@+id/txtShowNewDiary"/>
+                        android:id="@+id/txtShowNewDiary"
+                        android:background="#ffffff"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="10dp"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:id="@+id/rvDiary">
 
-                    <!-- the circular icon on the left -->
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/tiem"
-                        android:layout_marginRight="10dp"
-                        android:padding="4dp"/>
-
-                    <!-- views at the right of the blue line -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/item_time"
-                            android:text="31/10/2018"
-                            android:textSize="20dp"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/cat_avt"
-                                app:civ_border_width="2dp"
-                                app:civ_border_color="#FF000000"
-                                android:layout_marginRight="5dp"/>
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/dog_avt"
-                                app:civ_border_width="2dp"
-                                app:civ_border_color="#FF000000"/>
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/item_subtitle"
-                            android:text="Hom Nay Dc Di Da 4 Vui Hoa"/>
-
-                        <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rvDiaryImage"></android.support.v7.widget.RecyclerView>
-
-
-                        <!-- other views -->
-
-                    </LinearLayout>
-                </LinearLayout>
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
         </FrameLayout>

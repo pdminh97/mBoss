@@ -3,9 +3,13 @@ package mboss.tsm.Model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Entity(tableName = "Diary")
-public class Diary {
+public class Diary implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "DiaryID")
     private int DiaryID;
@@ -13,13 +17,26 @@ public class Diary {
     private String Content;
     @ColumnInfo(name = "DiaryTime")
     private String DiaryTime;
+    private Uri[] UriImages;
 
     public Diary(String content, String diaryTime) {
         Content = content;
         DiaryTime = diaryTime;
     }
 
+    public Diary(String content) {
+        Content = content;
+    }
+
     public Diary() {
+    }
+
+    public Uri[] getUriImages() {
+        return UriImages;
+    }
+
+    public void setUriImages(Uri[] uriImages) {
+        UriImages = uriImages;
     }
 
     public int getDiaryID() {

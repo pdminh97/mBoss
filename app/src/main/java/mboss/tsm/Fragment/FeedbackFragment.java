@@ -62,6 +62,8 @@ public class FeedbackFragment extends Fragment {
 
                 comments.add(0, comment);
                 adapter.notifyItemInserted(0);
+
+                cmtContent.setText("");
             }
         });
 

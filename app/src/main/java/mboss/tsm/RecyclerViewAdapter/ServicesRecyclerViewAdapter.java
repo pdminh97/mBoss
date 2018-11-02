@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,8 +39,7 @@ public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRe
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.txtServiceName.setText(services.get(i).getServiceName());
         viewHolder.txtClinicName.setText(services.get(i).getClinicName());
-        viewHolder.txtAvgPrice.setText(services.get(i).getAvgPrice() + "Đ");
-        viewHolder.txtRating.setText(services.get(i).getRating() + "/5");
+        viewHolder.txtRating.setRating((float)services.get(i).getRating());
 
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -58,15 +58,13 @@ public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRe
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txtServiceName;
         private TextView txtClinicName;
-        private TextView txtAvgPrice;
-        private TextView txtRating;
+        private RatingBar txtRating;
 
         private ItemClickListener itemClickListener;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtServiceName = itemView.findViewById(R.id.txtServiceName);
             txtClinicName = itemView.findViewById(R.id.txtClinicName);
-            txtAvgPrice = itemView.findViewById(R.id.txtAvgPrice);
             txtRating = itemView.findViewById(R.id.txtRating);
             itemView.setOnClickListener(this);
         }
@@ -80,4 +78,6 @@ public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRe
             itemClickListener.onItemClick(v, getAdapterPosition());
         }
     }
+
+
 }

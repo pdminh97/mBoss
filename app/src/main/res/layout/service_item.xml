@@ -48,18 +48,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="50.000đ"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textSize="20dp"-->
+                        <!--android:id="@+id/txtAvgPrice"/>-->
+                    <RatingBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50.000đ"
-                        android:layout_weight="1"
-                        android:textSize="20dp"
-                        android:id="@+id/txtAvgPrice"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.5/5"
-                        android:textSize="20dp"
+                        style="?android:ratingBarStyleSmall"
+                        android:layout_gravity="center"
                         android:id="@+id/txtRating"/>
                 </LinearLayout>
             </LinearLayout>

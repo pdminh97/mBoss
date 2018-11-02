@@ -29,7 +29,7 @@ public class PriceRecycleViewAdapter extends RecyclerView.Adapter<PriceRecycleVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.txtName.setText(serviceDetails.get(i).getName());
-        viewHolder.txtPrice.setText(serviceDetails.get(i).getPrice() + "");
+        viewHolder.txtPrice.setText(formatCurrency(serviceDetails.get(i).getPrice() + "") + "Đ");
     }
 
     @Override
@@ -49,5 +49,12 @@ public class PriceRecycleViewAdapter extends RecyclerView.Adapter<PriceRecycleVi
             txtName = itemView.findViewById(R.id.service_detail_name);
             txtPrice = itemView.findViewById(R.id.service_detail_price);
         }
+    }
+
+    private String formatCurrency(String n){
+        String s = n.toString();
+        String regex = "\\B(?=(\\d{3})+(?!\\d))";
+        String ret = s.replaceAll(regex, ".");
+        return ret;
     }
 }

@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -55,6 +57,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Polyline polyline;
     private PolylineOptions polylineOptions;
     private MarkerOptions markerOptions;
+    private Button btnDiraction;
+    private TextView txtDistance;
 
     public MapFragment() {
     }
@@ -71,6 +75,50 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         position = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude));
         SupportMapFragment map = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         map.getMapAsync(this);
+
+        txtDistance = view.findViewById(R.id.txtDistance);
+
+        btnDiraction = view.findViewById(R.id.btnDirection);
+        btnDiraction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
+                    return;
+                }
+
+                LocationListener locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        //Toast.makeText(context, "Change", Toast.LENGTH_SHORT).show();
+                        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        String url = getDirectionsUrl(currentLocation, position);
+                        DownloadDirectionData task = new DownloadDirectionData();
+                        task.execute(url);
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+
+                    }
+                };
+                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 2, locationListener);
+            }
+        });
+
         return view;
     }
 
@@ -81,40 +129,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
             return;
         }
-        // Enable MyLocation Button in the Map
         mMap.setMyLocationEnabled(true);
 
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Toast.makeText(context, "Change", Toast.LENGTH_SHORT).show();
-                currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                String url = getDirectionsUrl(currentLocation, position);
-                DownloadDirectionData task = new DownloadDirectionData();
-                task.execute(url);
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 2, locationListener);
 
 
         markerOptions = new MarkerOptions();
@@ -123,13 +143,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            onMapReady(mMap);
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (!(ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            onMapReady(mMap);
+        }
+    }
 
     private String getDirectionsUrl(LatLng origin, LatLng dest) {
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
@@ -211,16 +231,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     polylineOptions.addAll(PolyUtil.decode(polylineList.get(i)));
                     mMap.addPolyline(polylineOptions);
                 }
-
-
-
-//                Toast.makeText(getApplicationContext(), "Distance: " + distance, Toast.LENGTH_LONG).show();
-//            } else if (result.getString("status").equalsIgnoreCase("ZERO_RESULTS")) {
-//                Toast.makeText(getApplicationContext(), "No Result", Toast.LENGTH_SHORT).show();
-//            } else if (result.getString("status").equalsIgnoreCase("OVER_QUERY_LIMIT")) {
-//                Toast.makeText(getApplicationContext(), "Query Limit", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                txtDistance.setText(distance);
             }
         } catch (JSONException e) {
             Log.e("Direction Error", e.getMessage());
