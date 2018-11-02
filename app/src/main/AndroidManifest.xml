@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BossListActivity" />
-        <!-- <activity android:name=".MainActivity" /> -->
+        <!--<activity android:name=".BossListActivity" />-->
+         <!--<activity android:name=".MainActivity" />-->
         <activity android:name="com.yalantis.ucrop.UCropActivity" />
         <activity android:name="mboss.tsm.Profile.RegisterInforUserActivity" />
 
@@ -62,12 +62,13 @@
         </activity>
         <activity android:name=".DiaryActivity" />
         <activity android:name=".AddNewBossActivity" />
-        <activity android:name=".BossDetailActivity" />
+        <!--<activity android:name=".BossDetailActivity" />-->
         <activity android:name=".CategoryListActivity" />
         <activity android:name=".EditBossActivity" />
         <activity android:name=".DateListActivity" />
         <activity android:name=".AddDateActivity" />
         <activity android:name=".ServiceDetailActivity" />
+        <activity android:name=".AlarmActivity" />
 
         <receiver
             android:name="mboss.tsm.BroadcashReceiver.AlarmReceiver"

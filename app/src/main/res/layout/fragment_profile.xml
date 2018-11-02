@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical"
     tools:context="mboss.tsm.Fragment.ProfileFragment">
 
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="265dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/avatar"
+                android:src="@drawable/cover_profile1"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 
@@ -56,7 +57,7 @@
         android:layout_gravity="top|left"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="160dp"
-        android:src="@drawable/avatar"
+        android:src="@drawable/av1"
         app:civ_border_color="#ffffff"
         app:civ_border_width="1dp"
         app:finalHeight="40dp"
@@ -73,8 +74,9 @@
         android:layout_marginLeft="95dp"
         android:layout_marginTop="195dp"
         android:gravity="center"
-        android:text="Son Nguyen"
-        android:textColor="#ffffff"
+        android:text="Nguyễn Thị Mỹ Ê"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
         android:textSize="20sp" />
     </FrameLayout>
     <android.support.v4.widget.NestedScrollView
@@ -98,12 +100,13 @@
                     android:layout_width="113dp"
                     android:layout_height="49dp"
                     android:gravity="center"
-                    android:text="Phone: " />
+                    android:text="Số điện thoại: " />
 
                 <TextView
                     android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="08 489-2345"
                     android:gravity="left|center"/>
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -121,6 +124,7 @@
                     android:id="@+id/txtMail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="mbosspro72@gmail.com"
                     android:gravity="left|center"/>
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -128,14 +132,15 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <Button
+                    android:layout_margin="50dp"
                     android:id="@+id/chane_infor_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="115dp"
+                    android:layout_height="33dp"
+                    android:text="Thay đổi"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:background="#3399FF"
-                    android:text="@string/change_infor_user"
-                    android:textColor="@color/white" />
+                    android:textColor="#fff"
+                    android:background="@drawable/backgroundbutton"
+                    />
             </LinearLayout>
 
         </LinearLayout>

@@ -23,6 +23,10 @@ public class BossActivity {
     @SerializedName("Date")
     public String date;
     @Expose
+    @ColumnInfo(name = "Time")
+    @SerializedName("Time")
+    public String time;
+    @Expose
     @ColumnInfo(name = "Cared")
     @SerializedName("Cared")
     public String cared;
@@ -72,5 +76,13 @@ public class BossActivity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

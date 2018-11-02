@@ -143,7 +143,7 @@ public class BossRepository {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            bossDAO.updateBoss(newBoss);
+
         }
     }
 
@@ -151,5 +151,61 @@ public class BossRepository {
     public  interface  getDataCallBack{
         void CallBackSuccess(List<Boss> mBosses);
         void CallBackFail (String message);
+    }
+
+    public void updateBoss(Boss boss,OnCallBackData mBackData){
+        UpdateBossAsync updateBossAsync=new UpdateBossAsync(bossDAO,mBackData);
+        updateBossAsync.execute(boss);
+    }
+    private  class UpdateBossAsync extends AsyncTask<Boss, Void, Void>{
+        private  BossDAO mbossDAO;
+        private int update;
+        private OnCallBackData mOnCallBackData;
+
+        public UpdateBossAsync(BossDAO mbossDAO, OnCallBackData mOnCallBackData) {
+            this.mbossDAO = mbossDAO;
+            this.mOnCallBackData = mOnCallBackData;
+        }
+
+        @Override
+        protected Void doInBackground(Boss... bosses) {
+            update =   mbossDAO.updateBoss(bosses);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(update > 0){
+                mOnCallBackData.onCallBackData(null);
+            }
+            mOnCallBackData.onDataFail();
+        }
+    }
+
+    public  void  deleteBoss(Boss boss){
+        DeleteBossAsync deleteBossAsync=new DeleteBossAsync(bossDAO, boss);
+        deleteBossAsync.execute();
+
+    }
+
+    private  class DeleteBossAsync extends  AsyncTask<Boss, Void, Void>{
+        private  BossDAO bossDAO;
+        private  Boss boss;
+
+        public DeleteBossAsync(BossDAO bossDAO, Boss boss) {
+            this.bossDAO = bossDAO;
+            this.boss = boss;
+        }
+
+        @Override
+        protected Void doInBackground(Boss... bosses) {
+            bossDAO.deleteBoss(boss);
+            return null;
+        }
+    }
+    public  interface  OnCallBackData{
+        void onCallBackData(Boss boss);
+        void onDataFail();
     }
 }

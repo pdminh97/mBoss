@@ -9,8 +9,8 @@
     android:background="@drawable/background1">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_avata"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@mipmap/avata"
         android:layout_gravity="center"
         android:layout_marginTop="80dp" />
@@ -45,7 +45,8 @@
         <Spinner
             android:id="@+id/species_spinner"
             android:layout_width="279dp"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            >
         </Spinner>
     </LinearLayout>
 
@@ -70,7 +71,7 @@
             />
         <Spinner
             android:id="@+id/gender_spinner"
-            android:layout_width="30dp"
+            android:layout_width="15dp"
             android:layout_height="30dp"
             android:layout_weight="2"
             >

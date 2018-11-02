@@ -69,7 +69,7 @@
             />
         <Spinner
             android:id="@+id/edtGender_spinner"
-            android:layout_width="0dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1.5">
             <!--android:background="@drawable/border_radius">-->
@@ -109,18 +109,20 @@
         <Button
             android:layout_margin="50dp"
             android:id="@+id/button_edit"
-            android:layout_width="115dp"
-            android:layout_height="33dp"
+            android:layout_width="135dp"
+            android:layout_height="43dp"
             android:text="Lưu"
             android:layout_gravity="center"
             android:textColor="#fff"
             android:background="@drawable/backgroundbutton"
+            android:onClick="clickToUpdateBoss"
             />
         <Button
             android:id="@+id/button_delete"
-            android:layout_width="115dp"
-            android:layout_height="33dp"
-            android:text="Xóa"
+            android:onClick="clickToDeleteBoss"
+            android:layout_width="135dp"
+            android:layout_height="43dp"
+            android:text="Xóa thú cưng"
             android:layout_gravity="center"
             android:textColor="#fff"
             android:background="@drawable/backgroundbutton"

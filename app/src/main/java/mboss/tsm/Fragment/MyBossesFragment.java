@@ -17,7 +17,7 @@ import mboss.tsm.Model.Boss;
 import mboss.tsm.RecyclerViewAdapter.BossListRecyclerViewAdapter;
 import mboss.tsm.Repository.BossRepository;
 import mboss.tsm.mboss.AddNewBossActivity;
-import mboss.tsm.mboss.BossDetailActivity;
+import mboss.tsm.mboss.MainActivity;
 import mboss.tsm.mboss.R;
 
 public class MyBossesFragment extends Fragment {
@@ -80,7 +80,8 @@ public class MyBossesFragment extends Fragment {
             mAdapter.setItemOnListenner(new BossListRecyclerViewAdapter.setOnIteamlistener() {
                 @Override
                 public void setOnIteamListener(int position) {
-                    intentToDetail(mListBoss.get(position));
+                    //intentToDetail(mListBoss.get(position));
+                    showBossDetail(mListBoss.get(position));
                 }
             });
         } else {
@@ -89,10 +90,18 @@ public class MyBossesFragment extends Fragment {
     }
 
     private void intentToDetail(Boss boss) {
-        Intent intent = new Intent(getActivity(), BossDetailActivity.class);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(BOSSES, boss);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void showBossDetail(Boss boss) {
+        BossDetailFragment bossDetailFragment = new BossDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BOSSES, boss);
+        bossDetailFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().add(R.id.boss_detail_fragment_container, bossDetailFragment).commit();
     }
 }

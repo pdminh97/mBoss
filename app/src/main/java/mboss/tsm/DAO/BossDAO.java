@@ -19,8 +19,9 @@ public interface BossDAO {
     public List<Boss> getBosses();
 
     @Update
-    public void updateBoss(Boss boss);
+    public int  updateBoss(Boss ... bosses);
 
     @Delete
     public void deleteBoss(Boss boss);
+
 }

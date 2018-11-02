@@ -7,10 +7,10 @@
     <string name="phone_number_login">Đăng nhập bằng số điện thoại</string>
     <string name="mail_login">Đăng nhập bằng Mail</string>
     <string name="get_code">Lấy mã xác nhận</string>
-    <string name="pet_diary">Diary</string>
-    <string name="pet_list">My Bosses</string>
-    <string name="clinic_service">Service</string>
-    <string name="user_profile">Profile</string>
+    <string name="pet_diary">Nhật kí</string>
+    <string name="pet_list">Thú nuôi</string>
+    <string name="clinic_service">Thú y</string>
+    <string name="user_profile">Cá nhân</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="profile_fragment">Hello Profile</string>

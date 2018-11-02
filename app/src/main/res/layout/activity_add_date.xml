@@ -1,60 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddDateActivity"
     android:orientation="vertical"
-    android:background="#fff">
+    tools:context=".AddDateActivity">
 
-    <!--<DatePicker-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/datePicker">-->
-    <!--</DatePicker>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#0083b0"
+        android:gravity="center"
+        android:text="Nhập thông tin"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/status_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Thông báo tắt"
+            android:textSize="20dp"
+            android:textColor="#00B4DB"
+            android:textStyle="bold" />
+        <Switch
+            android:id="@+id/bell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#00B4DB"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
             android:text="Ngày"
-            android:textStyle="bold"
-            />
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <EditText
-            android:layout_marginLeft="50dp"
+            android:id="@+id/edtDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtDate"/>
+            android:layout_marginLeft="50dp" />
 
     </LinearLayout>
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Chăm sóc"-->
-    <!--/>-->
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
-        android:text="Ghi chú"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
-    <EditText
-        android:id="@+id/edtNote"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Thời gian: "
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
-        android:textSize="17dp"
-        />
-    <ImageButton
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="Ghi chú"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="textMultiLine"
+            android:textSize="17dp" />
+    </LinearLayout>
+    <Button
         android:id="@+id/imbCheck"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center|bottom"
-        android:background="@null"
-        android:src="@mipmap/create"
-        android:onClick="clickToAdd"/>
+        android:layout_width="115dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/backgroundbutton"
+        android:onClick="clickToAdd"
+        android:text="Lưu"
+        android:textColor="#fff" />
+
 </LinearLayout>

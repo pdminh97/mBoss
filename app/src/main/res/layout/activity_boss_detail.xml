@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BossDetailActivity"
+    tools:context="mboss.tsm.Fragment.BossDetailFragment"
     android:orientation="vertical"
     android:background="#fff">
 
@@ -14,7 +14,7 @@
         android:textSize="20dp"
         android:background="#0083b0"
         android:textColor="#fff"
-        android:text="My Boss"
+        android:text="Chăm sóc"
         android:gravity="center"
         />
 

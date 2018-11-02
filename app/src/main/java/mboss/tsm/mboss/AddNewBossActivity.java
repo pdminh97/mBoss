@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import mboss.tsm.Fragment.MyBossesFragment;
 import mboss.tsm.Model.Boss;
 import mboss.tsm.RecyclerViewAdapter.CustomGenderSpiner;
 import mboss.tsm.Repository.BossRepository;
@@ -133,7 +134,7 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
         }else {
             newBoss.setGender("Đực");
         }
-        newBoss.setBossName(mEditTextName.getText().toString());
+        newBoss.setBossName(mEditTextName.getText().toString().toUpperCase());
         newBoss.setPictures(resultUri.toString());
         BossRepository bossRepository = new BossRepository(AddNewBossActivity.this);
         bossRepository.InsertBoss(newBoss);

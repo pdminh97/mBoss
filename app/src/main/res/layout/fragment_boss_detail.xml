@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="mboss.tsm.Fragment.BossDetailFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eaf4f3">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="#0083b0"
+                    android:gravity="center"
+                    android:text="My Boss"
+                    android:textColor="#fff"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:background="@drawable/detail_image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="-170dp"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image_detail"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="20dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvName_detail"
+                            android:layout_width="230dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:gravity="left"
+                            android:text="TOM"
+                            android:textColor="#fff"
+                            android:textSize="25dp"
+
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvSpecies_detail"
+                                android:layout_width="60dp"
+                                android:layout_height="23dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/border_boss"
+                                android:gravity="center"
+                                android:text="DOG"
+                                android:textColor="#fff"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:id="@+id/tvGender_detail"
+                                android:layout_width="60dp"
+                                android:layout_height="23dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/border_boss"
+                                android:gravity="center"
+                                android:text="FEMALE"
+                                android:textColor="#fff"
+                                android:textSize="10dp" />
+
+                            <Button
+                                android:id="@+id/btnEditBoss"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@mipmap/edit"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvBossCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <!--android:layout_marginTop="10dp">-->
+                    </android.support.v7.widget.RecyclerView>
+
+                    <ImageButton
+                        android:id="@+id/imCreate"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginTop="150dp"
+                        android:background="@null"
+                        android:src="@mipmap/create" />
+
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/date_list_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </FrameLayout>
+
+
+
+</LinearLayout>

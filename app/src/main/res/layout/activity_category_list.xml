@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".CategoryListActivity"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="Thêm hoạt động"
+        android:textSize="20dp"
+        android:background="#0083b0"
+        android:textColor="#fff"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

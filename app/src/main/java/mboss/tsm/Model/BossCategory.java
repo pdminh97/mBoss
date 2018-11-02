@@ -1,5 +1,6 @@
 package mboss.tsm.Model;
 
+
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -15,13 +16,16 @@ import mboss.tsm.Utility.ConvertCategoryType;
 @Entity(tableName = "BossCategory")
 public class BossCategory implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "ID")
+    //@Expose
+    public int  id;
+
     @ColumnInfo(name = "BossID")
-    @Expose
     public int  bossID;
-    @Expose
+    //@Expose
     @ColumnInfo(name = "BossListCategory")
     @TypeConverters(ConvertCategoryType.class)
-    public Category mCategorytList;
+    public List<Category> mCategorytList;
 
 
     public int getBossID() {
@@ -32,12 +36,11 @@ public class BossCategory implements Serializable {
         this.bossID = bossID;
     }
 
-    public Category getmCategorytList() {
+    public List<Category> getmCategorytList() {
         return mCategorytList;
     }
 
-    public void setmCategorytList(Category mCategorytList) {
+    public void setmCategorytList(List<Category> mCategorytList) {
         this.mCategorytList = mCategorytList;
     }
 }
-
