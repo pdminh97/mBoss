@@ -35,7 +35,7 @@ public class ServiceRepository {
     }
 
     public void getTopSevice() {
-        final ProgressDialog loading = ProgressDialog.show(context,"Fetching Data","Please wait...",false,false);
+        final ProgressDialog loading = ProgressDialog.show(context,"Đang lấy dữ liệu","Vui lòng chờ...",false,false);
         service.getTopService().enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {

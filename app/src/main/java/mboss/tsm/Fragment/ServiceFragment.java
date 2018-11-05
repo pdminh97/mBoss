@@ -76,7 +76,7 @@ public class ServiceFragment extends Fragment {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
                 Suggestion suggestion = (Suggestion) searchSuggestion;
-                //Toast.makeText(getApplicationContext(),"Ban vua chon "+suggestion.getBody(),Toast.LENGTH_SHORT).show();
+                serviceRepository.searchSevice(suggestion.getBody());
             }
 
             @Override

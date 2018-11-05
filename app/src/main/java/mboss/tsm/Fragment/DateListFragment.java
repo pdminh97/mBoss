@@ -68,7 +68,6 @@ public class DateListFragment extends Fragment {
     private  void iniatialData(){
         Bundle bundle = getArguments();
         bossCategory = (Category) bundle.getSerializable(BossDetailFragment.TITLE);
-        title.setText(bossCategory.getName());
         pos = bundle.getInt("Position");
         mCategories = (List<Category>) bundle.getSerializable("bundle");
         BossID = bundle.getInt("ID");

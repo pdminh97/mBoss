@@ -10,24 +10,24 @@ import android.widget.ImageView;
 
 import mboss.tsm.mboss.R;
 
-public class DiaryImageRecyclerViewAdapter extends RecyclerView.Adapter<DiaryImageRecyclerViewAdapter.ViewHolder> {
-    private Uri[] imageUris;
+public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ViewHolder> {
+    Uri[] imageUris;
 
-    public DiaryImageRecyclerViewAdapter(Uri[] imageUris) {
+    public ImageRecyclerViewAdapter(Uri[] imageUris) {
         this.imageUris = imageUris;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View view = layoutInflater.inflate(R.layout.diary_image_item, viewGroup, false);
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View view = inflater.inflate(R.layout.image_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.imageView.setImageURI(imageUris[i]);
+        viewHolder.ivImage.setImageURI(imageUris[i]);
     }
 
     @Override
@@ -40,10 +40,10 @@ public class DiaryImageRecyclerViewAdapter extends RecyclerView.Adapter<DiaryIma
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-         public ViewHolder(@NonNull View itemView) {
-             super(itemView);
-             imageView = itemView.findViewById(R.id.diary_image_src);
-         }
-     }
+        private ImageView ivImage;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ivImage = itemView.findViewById(R.id.ivImage);
+        }
+    }
 }

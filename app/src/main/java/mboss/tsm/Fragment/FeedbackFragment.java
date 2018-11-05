@@ -3,7 +3,6 @@ package mboss.tsm.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import java.util.List;
 import mboss.tsm.Model.Comment;
 import mboss.tsm.RecyclerViewAdapter.CommentRecyclerViewAdapter;
 import mboss.tsm.Repository.ServiceDetailRepository;
-import mboss.tsm.Repository.ServiceRepository;
 import mboss.tsm.mboss.R;
 
 /**
@@ -62,6 +60,8 @@ public class FeedbackFragment extends Fragment {
 
                 comments.add(0, comment);
                 adapter.notifyItemInserted(0);
+
+                cmtContent.setText("");
             }
         });
 

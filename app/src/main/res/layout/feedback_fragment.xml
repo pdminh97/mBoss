@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Minh Black"
+                android:text="Nguyễn Thị Mỹ Ê"
                 android:textSize="20dp"
                 android:id="@+id/txtAccountName"
                 android:layout_weight="1"/>
@@ -38,7 +38,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nội Dung"
+                android:hint="Nội Dung"
                 android:id="@+id/txtCommentContent"
                 android:inputType="textMultiLine"
                 android:textSize="15dp"/>
