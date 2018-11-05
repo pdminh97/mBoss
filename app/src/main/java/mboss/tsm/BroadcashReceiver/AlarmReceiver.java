@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.os.Build;
+import android.util.Log;
 
 import mboss.tsm.Service.RingtoneService1;
 
@@ -27,6 +28,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             serviceIntent.putExtra("bossname", bossname);
             context.startForegroundService(serviceIntent);
         } else {
+            serviceIntent.putExtra("extra", state);
+            serviceIntent.putExtra("content", content);
+            serviceIntent.putExtra("category", category);
+            serviceIntent.putExtra("bossname", bossname);
 //            context.startService(new Intent(context, RingtoneService1.class));
             context.startService(serviceIntent);
         }

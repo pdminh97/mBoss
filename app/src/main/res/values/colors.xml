@@ -13,4 +13,5 @@
     <color name="home_color">#D81B60</color>
     <color name="com_facebook_blue">#3B5998</color>
     <color name="suggest_button">#66FF00</color>
+    <color name="gray">#9c9a9a</color>
 </resources>

@@ -27,7 +27,7 @@ public class Boss implements Serializable {
     @SerializedName("BossWeight")
     @Expose
     @ColumnInfo(name = "BossWeight")
-    public String bossWeight;
+    public Float bossWeight;
     @SerializedName("AccountID")
     @Expose
     @ColumnInfo(name = "AccountID")
@@ -108,11 +108,11 @@ public class Boss implements Serializable {
         this.bossAge = bossAge;
     }
 
-    public String getBossWeight() {
+    public Float getBossWeight() {
         return bossWeight;
     }
 
-    public void setBossWeight(String bossWeight) {
+    public void setBossWeight(Float bossWeight) {
         this.bossWeight = bossWeight;
     }
 

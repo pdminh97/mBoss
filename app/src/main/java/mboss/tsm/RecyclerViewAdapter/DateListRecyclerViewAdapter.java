@@ -15,7 +15,7 @@ import mboss.tsm.Model.BossActivity;
 import mboss.tsm.mboss.DateListActivity;
 import mboss.tsm.mboss.R;
 
-public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRecyclerViewAdapter.ViewHolder> {
+ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRecyclerViewAdapter.ViewHolder> {
     List<BossActivity> bossActivityList;
     private setOnIteamlistener onIteamlistener;
     private DateListActivity context;
@@ -36,6 +36,7 @@ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRe
     @Override
     public void onBindViewHolder(@NonNull DateListRecyclerViewAdapter.ViewHolder viewHolder, final int pos) {
         viewHolder.tvDate.setText(bossActivityList.get(pos).getDate());
+        viewHolder.tvTime.setText(bossActivityList.get(pos).getTime());
         viewHolder.mLnlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,12 +45,12 @@ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRe
                 }
             }
         });
-        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //context.DialogDeleteDate();
-            }
-        });
+//        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //context.DialogDeleteDate();
+//            }
+//        });
 
     }
 
@@ -71,14 +72,17 @@ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvDate;
+        private TextView tvTime;
         private LinearLayout mLnlRoot;
         private ImageButton edit;
         private ImageButton delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDate = itemView.findViewById(R.id.tvDateActivity);
+            tvDate = itemView.findViewById(R.id.txt_date);
+            tvTime = itemView.findViewById(R.id.txt_time);
+
             mLnlRoot = itemView.findViewById(R.id.lnlRoot);
-            delete=itemView.findViewById(R.id.delete_date);
+//            delete=itemView.findViewById(R.id.delete_date);
 
         }
     }

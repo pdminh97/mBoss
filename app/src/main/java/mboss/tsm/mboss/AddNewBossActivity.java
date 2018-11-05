@@ -3,16 +3,21 @@ package mboss.tsm.mboss;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -34,10 +39,13 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
     private Spinner mSpinnerGender;
     private ImageView imageView;
     private Uri resultUri;
-    private EditText mEditTextName;
+    private EditText mEditTextName, mBossAge, mBossWeight;
     private Boss newBoss;
     private Button mBtnAddBoss;
     private int[] spinnerImages;
+    private ImageButton back;
+    private String[] listGender;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,12 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
             }
         });
         mBtnAddBoss.setOnClickListener(AddNewBossActivity.this);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            finish();
+            }
+        });
     }
 
     private  void iniatialView(){
@@ -63,28 +77,129 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
         imageView = findViewById(R.id.image_avata);
         mEditTextName = findViewById(R.id.edtName);
         mBtnAddBoss = findViewById(R.id.button_add);
+        mBossAge=findViewById(R.id.addAge);
+        mBossWeight=findViewById(R.id.addWeight);
         List<String> listOption = new ArrayList<>();
+        listOption.add("Loại thú cưng");
         listOption.add("Chó");
         listOption.add("Mèo");
-        listOption.add("Khác");
+        listOption.add("Loại khác");
+
         List<String> listGender = new ArrayList<>();
-        listGender.add("Đực");
+        listGender.add("Giới tính");
         listGender.add("Cái");
+        listGender.add("Đực");
         spinnerImages = new int[]{R.mipmap.female,R.mipmap.male};
-        ArrayAdapter<String> adapterOption = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOption);
+        ArrayAdapter<String> adapterOption = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOption){
+            @Override
+            public boolean isEnabled(int position) {
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView,  @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    tv.setTextColor(getResources().getColor(R.color.gray));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                    tv.setPadding(38,0,0,0);
+                }
+                else {
+                    tv.setTextColor(getResources().getColor(R.color.black));
+                    tv.setPadding(38,0,0,0);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                }
+                return view;
+            }
+        };
         adapterOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerOption.setAdapter(adapterOption);
         mSpinnerOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //  Toast.makeText(AddNewBossActivity.this, mSpinnerOption.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    tv.setTextColor(getResources().getColor(R.color.gray));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                    tv.setPadding(38,0,0,0);
+                }
+                else {
+                    tv.setTextColor(getResources().getColor(R.color.black));
+                    tv.setPadding(38,0,0,0);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        CustomGenderSpiner mCustomAdapter = new CustomGenderSpiner(spinnerImages,AddNewBossActivity.this);
-        mSpinnerGender.setAdapter(mCustomAdapter);
+
+        ArrayAdapter<String> adapterGender= new ArrayAdapter(this, android.R.layout.simple_spinner_item, listGender){
+            @Override
+            public boolean isEnabled(int position) {
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position,  @Nullable View convertView,  @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    tv.setTextColor(getResources().getColor(R.color.gray));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                    tv.setPadding(38,0,0,0);
+                }
+                else {
+                    tv.setTextColor(getResources().getColor(R.color.black));
+                    tv.setPadding(38,0,0,0);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                }
+                return view;
+            }
+        };
+        //  CustomGenderSpiner mCustomAdapter = new CustomGenderSpiner(spinnerImages, listGender, AddNewBossActivity.this);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGender.setAdapter(adapterGender);
+        mSpinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    tv.setTextColor(getResources().getColor(R.color.gray));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                    tv.setPadding(38,0,0,0);
+
+                }
+                else {
+                    tv.setTextColor(getResources().getColor(R.color.black));
+                    tv.setPadding(38,0,0,0);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14f);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        back = findViewById(R.id.btn_back);
+
     }
 
 
@@ -128,17 +243,25 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
 
     private void clickToAddBoss(){
         newBoss = new Boss();
-        newBoss.setSpecies(mSpinnerOption.getSelectedItem().toString());
-        if(mSpinnerGender.getSelectedItemPosition() == 0){
+        if(mSpinnerOption.getSelectedItemPosition()>0){
+            newBoss.setSpecies(mSpinnerOption.getSelectedItem().toString());
+        }
+        if(mSpinnerGender.getSelectedItemPosition() == 0) {
+        }
+        else if(mSpinnerGender.getSelectedItemPosition()== 1) {
             newBoss.setGender("Cái");
-        }else {
+        }
+        else {
             newBoss.setGender("Đực");
         }
         newBoss.setBossName(mEditTextName.getText().toString().toUpperCase());
         newBoss.setPictures(resultUri.toString());
+        newBoss.setBossAge(Integer.parseInt(mBossAge.getText().toString()));
+        newBoss.setBossWeight(Float.parseFloat(mBossWeight.getText().toString()));
         BossRepository bossRepository = new BossRepository(AddNewBossActivity.this);
         bossRepository.InsertBoss(newBoss);
         intentToBossList();
+
 
     }
     private  void intentToBossList(){
@@ -154,5 +277,15 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
                 clickToAddBoss();
                 break;
         }
+    }
+    private boolean validateName(){
+        String inputName=mEditTextName.getEditableText().toString().trim();
+        if(inputName.isEmpty()){
+            mEditTextName.setError("Tên không được để trống");
+            return false;
+        }
+        mEditTextName.setError(null);
+        return true;
+
     }
 }

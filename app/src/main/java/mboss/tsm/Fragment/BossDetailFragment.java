@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +44,19 @@ public class BossDetailFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Category> bossCategories;
     public static final String TITLE = "Title";
-    public static  final  String CATEGORY ="Category";
-    private  int BossId;
-    public static  final  String BUNDLE_EDIT_DATA = "BUNDLE_EDIT";
+    public static final String CATEGORY = "Category";
+    private int BossId;
+    public static final String BUNDLE_EDIT_DATA = "BUNDLE_EDIT";
+    private ImageButton back;
+    private TextView emptyView;
+    private ImageView emptyImage;
+    private FrameLayout frameLayoutDetail;
+    private TextView tvAgeDetail;
+    private TextView tvWeightDetail;
+    private LinearLayout update;
+    private TextView title;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +74,11 @@ public class BossDetailFragment extends Fragment {
     }
 
     private void initialView(View view) {
+        emptyView = view.findViewById(R.id.empty_message_category);
+        emptyImage = view.findViewById(R.id.empty_image_category);
+        frameLayoutDetail = view.findViewById(R.id.frameLayoutDetail);
+        update = view.findViewById(R.id.update);
+        back = view.findViewById(R.id.btn_back);
         tvNameDetail = view.findViewById(R.id.tvName_detail);
         tvSpeciesDetail = view.findViewById(R.id.tvSpecies_detail);
         tvGenderDetail = view.findViewById(R.id.tvGender_detail);
@@ -72,6 +88,9 @@ public class BossDetailFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rvBossCategory);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
+        tvAgeDetail = view.findViewById(R.id.tvAge_detail);
+        tvWeightDetail = view.findViewById(R.id.tvWeight_detail);
+        title = view.findViewById(R.id.txt_title);
     }
 
     private void iniatialData() {
@@ -79,11 +98,15 @@ public class BossDetailFragment extends Fragment {
         mBoss = (Boss) bundle.getSerializable(MyBossesFragment.BOSSES);
 //        mBoss = (Boss)intent.getSerializableExtra(BossListActivity.BOSSES);
 //        Log.e("hehe", "name: "+ mBoss.getBossName() + " gender: " +mBoss.getGender()+ " special: "+ mBoss.getSpecies() +"Pic: "+ mBoss.getPictures());
-        tvGenderDetail.setText(mBoss.getGender());
-        tvNameDetail.setText(mBoss.getBossName());
-        tvSpeciesDetail.setText(mBoss.getSpecies());
-        imageDetail.setImageURI(Uri.parse(mBoss.getPictures()));
-
+        title.setText(mBoss.getBossName());
+        if(mBoss!=null) {
+            tvGenderDetail.setText(mBoss.getGender());
+            tvNameDetail.setText(mBoss.getBossName());
+            tvSpeciesDetail.setText(mBoss.getSpecies());
+            imageDetail.setImageURI(Uri.parse(mBoss.getPictures()));
+            tvAgeDetail.setText(mBoss.getBossAge().toString());
+            tvWeightDetail.setText(Math.round(mBoss.getBossWeight()) + "Kg");
+        }
         imCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,53 +119,89 @@ public class BossDetailFragment extends Fragment {
                 intentDataToEditActivity(mBoss);
             }
         });
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentDataToEditActivity(mBoss);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//               onBackPressed();
+                MyBossesFragment myBossesFragment = new MyBossesFragment();
+                getFragmentManager().beginTransaction().add(R.id.boss_detail_fragment_container, myBossesFragment).commit();
+            }
+        });
 
     }
-    private void intentDataToEditActivity(Boss boss){
-        Intent intent=new Intent(getActivity(),EditBossActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(BUNDLE_EDIT_DATA,boss);
+
+    private void intentDataToEditActivity(Boss boss) {
+        Intent intent = new Intent(getActivity(), EditBossActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_EDIT_DATA, boss);
+        intent.putExtras(bundle);
+//        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void intentToCategoryList(Boss boss) {
+        Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(CATEGORY, boss.getBossID());
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void intentToCategoryList(Boss boss){
-        Intent intent=new Intent(getActivity(),CategoryListActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putInt(CATEGORY,boss.getBossID());
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
     private void intentDateListFragment(Category bossCategory, int postion) {
 
-        Intent intent=new Intent(getActivity(),DateListActivity.class);
-        Bundle bundle=new Bundle();
+        Intent intent = new Intent(getActivity(), DateListActivity.class);
+        Bundle bundle = new Bundle();
         String bossName = mBoss.getBossName();
-        bundle.putInt("Position",postion);
+        bundle.putInt("Position", postion);
         bundle.putString("BossName", bossName);
         bundle.putSerializable(TITLE, bossCategory);
-        bundle.putInt("ID",BossId);
-        bundle.putSerializable("bundle",(Serializable) bossCategories);
+        bundle.putInt("ID", BossId);
+        bundle.putSerializable("bundle", (Serializable) bossCategories);
         intent.putExtras(bundle);
 //        bundle.putSerializable(TITLE, bossCategory);
 //        intent.putExtras(bundle);
-        startActivity(intent);
+//        startActivity(intent);
+        startActivityForResult(intent, 1);
+
     }
 
-    public void update(){
-        if(mAdapter == null){
-            mAdapter = new BossCategoryListRecyclerViewAdapter(getActivity(),bossCategories);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.setItemOnListenner(new BossCategoryListRecyclerViewAdapter.OnItemListener() {
-                @Override
-                public void OnClickItemListener(int postion) {
-                    intentDateListFragment(bossCategories.get(postion),postion);
+    public void update() {
+        if (bossCategories.isEmpty()) {
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.VISIBLE);
+            frameLayoutDetail.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            emptyImage.setVisibility(View.VISIBLE);
+            frameLayoutDetail.setVisibility(View.GONE);
 
-                }
-            });
-        }
-        else {
-            mAdapter.setNotifySetChange(bossCategories);
+            if (mAdapter == null) {
+                mAdapter = new BossCategoryListRecyclerViewAdapter(getActivity(), bossCategories);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setItemOnListenner(new BossCategoryListRecyclerViewAdapter.OnItemListener() {
+                    @Override
+                    public void OnClickItemListener(int postion) {
+                        intentDateListFragment(bossCategories.get(postion), postion);
+
+                    }
+                });
+            } else {
+                mAdapter.setNotifySetChange(bossCategories);
+            }
         }
     }
 

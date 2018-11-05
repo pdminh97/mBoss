@@ -6,14 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".CategoryListActivity"
     android:orientation="vertical">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:text="Thêm hoạt động"
-        android:textSize="20dp"
-        android:background="#0083b0"
-        android:textColor="#fff"/>
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#0083b0"
+                android:gravity="center"
+                android:text="Thêm hoạt động"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:tint="#fff"
+                android:src="@mipmap/left_arrow" />
+
+
+        </FrameLayout>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

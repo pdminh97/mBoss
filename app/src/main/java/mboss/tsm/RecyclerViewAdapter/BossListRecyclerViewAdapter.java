@@ -3,7 +3,6 @@ package mboss.tsm.RecyclerViewAdapter;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,6 @@ public class BossListRecyclerViewAdapter extends RecyclerView.Adapter<BossListRe
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
         viewHolder.tvName.setText(data.get(pos).getBossName());
         viewHolder.mAvata.setImageURI(Uri.parse(data.get(pos).getPictures()));
-        Log.e("My Picture", data.get(pos).getPictures());
-
         viewHolder.mLnlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

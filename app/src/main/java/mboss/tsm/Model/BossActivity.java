@@ -7,8 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "BossActivity")
-public class BossActivity {
+public class BossActivity implements Serializable {
     @PrimaryKey()
     @ColumnInfo(name = "BossID")
     @SerializedName("BossID")
@@ -34,6 +36,10 @@ public class BossActivity {
     @ColumnInfo(name = "Note")
     @SerializedName("Note")
     public String note;
+    @Expose
+    @ColumnInfo(name = "NotificationStatus")
+    @SerializedName("NotificationStatus")
+    public boolean notificationStatus;
 
     public BossActivity() {
     }
@@ -84,5 +90,13 @@ public class BossActivity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public boolean getNotificationStatus() {
+        return notificationStatus;
+    }
+
+    public void setNotificationStatus(boolean notificationStatus) {
+        this.notificationStatus = notificationStatus;
     }
 }

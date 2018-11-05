@@ -9,7 +9,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class MyBossesFragment extends Fragment {
     private BossListRecyclerViewAdapter mAdapter;
     private List<Boss> mListBoss;
     public static final String BOSSES = "Bosses";
+    private TextView emptyView;
+    private ImageView emptyImage;
+    private FrameLayout frameLayout;
 
     public MyBossesFragment() {
         // Required empty public constructor
@@ -47,6 +53,10 @@ public class MyBossesFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rvBosses);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
+        emptyView = (TextView) view.findViewById(R.id.empty_item_message);
+        emptyImage=view.findViewById(R.id.empty_item_image);
+        frameLayout=view.findViewById(R.id.frameLayout);
+
 
     }
 
@@ -68,34 +78,39 @@ public class MyBossesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddNewBossActivity.class);
                 startActivity(intent);
+//        startActivityForResult(intent,1);
             }
         });
 
     }
 
     private void update() {
-        if (mAdapter == null) {
-            mAdapter = new BossListRecyclerViewAdapter(mListBoss);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.setItemOnListenner(new BossListRecyclerViewAdapter.setOnIteamlistener() {
-                @Override
-                public void setOnIteamListener(int position) {
-                    //intentToDetail(mListBoss.get(position));
-                    showBossDetail(mListBoss.get(position));
-                }
-            });
+        if (mListBoss.isEmpty()) {
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.VISIBLE);
+            frameLayout.setVisibility(View.VISIBLE);
         } else {
-            mAdapter.notifyDataSetChanged();
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            emptyImage.setVisibility(View.VISIBLE);
+            frameLayout.setVisibility(View.GONE);
+
+            if (mAdapter == null) {
+                mAdapter = new BossListRecyclerViewAdapter(mListBoss);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setItemOnListenner(new BossListRecyclerViewAdapter.setOnIteamlistener() {
+                    @Override
+                    public void setOnIteamListener(int position) {
+                        showBossDetail(mListBoss.get(position));
+                    }
+                });
+            } else {
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 
-    private void intentToDetail(Boss boss) {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(BOSSES, boss);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     private void showBossDetail(Boss boss) {
         BossDetailFragment bossDetailFragment = new BossDetailFragment();
