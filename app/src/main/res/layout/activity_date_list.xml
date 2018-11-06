@@ -29,8 +29,8 @@
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:background="#0083b0"
-                android:tint="#fff"
-                android:src="@mipmap/left_arrow" />
+                android:src="@mipmap/left_arrow"
+                android:tint="#fff" />
 
             <ImageButton
                 android:id="@+id/btn_delete_bosscategory"
@@ -44,17 +44,21 @@
     </LinearLayout>
 
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eaf4f3">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvDate"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"></android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"></android.support.v7.widget.RecyclerView>
+        </ScrollView>
 
         <ImageButton
             android:id="@+id/imCreateDate"
@@ -65,4 +69,5 @@
             android:background="@null"
             android:src="@mipmap/create" />
     </FrameLayout>
+
 </LinearLayout>

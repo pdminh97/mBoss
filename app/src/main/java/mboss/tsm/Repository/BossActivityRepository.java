@@ -14,6 +14,7 @@ public class BossActivityRepository {
     private Context context;
     private BossActivityDAO bossActivityDAO;
     private Activity parentActivity;
+    int BossID;
 
     public BossActivityRepository(Activity parentActivity) {
         AppDatabase database = AppDatabase.getInstance(parentActivity.getApplicationContext());
@@ -21,26 +22,30 @@ public class BossActivityRepository {
         this.parentActivity = parentActivity;
     }
 
-    public  void getAllDate(getDataCallBack getDataCallBack){
-       GetAllDateAsyc getAllDateAsyc=new GetAllDateAsyc(bossActivityDAO, getDataCallBack);
-       getAllDateAsyc.execute();
+    public void getAllDate(int BossID, int CategoryID, getDataCallBack getDataCallBack) {
+        GetAllDateAsyc getAllDateAsyc = new GetAllDateAsyc(BossID, CategoryID, bossActivityDAO, getDataCallBack);
+        getAllDateAsyc.execute();
 
     }
 
 
-    private  class GetAllDateAsyc extends AsyncTask<Void, Void, List<BossActivity>>{
-List<BossActivity> bossActivities;
-private getDataCallBack mGetDataCallBack;
+    private class GetAllDateAsyc extends AsyncTask<Void, Void, List<BossActivity>> {
+        List<BossActivity> bossActivities;
+        private getDataCallBack mGetDataCallBack;
         private BossActivityDAO bossActivityDAO;
+        int BossID;
+        int CategoryID;
 
-        public GetAllDateAsyc(BossActivityDAO bossActivityDAO, getDataCallBack mGetDataCallBack ) {
+        public GetAllDateAsyc(int BossID, int CategoryID,BossActivityDAO bossActivityDAO, getDataCallBack mGetDataCallBack) {
             this.mGetDataCallBack = mGetDataCallBack;
             this.bossActivityDAO = bossActivityDAO;
+            this.BossID = BossID;
+            this.CategoryID = CategoryID;
         }
 
         @Override
         protected List<BossActivity> doInBackground(Void... voids) {
-            bossActivities=bossActivityDAO.getDatePicker();
+            bossActivities = bossActivityDAO.getDatePicker(BossID, CategoryID);
             return bossActivities;
         }
 
@@ -57,19 +62,15 @@ private getDataCallBack mGetDataCallBack;
     }
 
 
-
-
-
-
-    public void insertDate(BossActivity bossActivity){
-        InsertDateAsyc insertDateAsyc=new InsertDateAsyc(bossActivityDAO, bossActivity);
+    public void insertDate(BossActivity bossActivity) {
+        InsertDateAsyc insertDateAsyc = new InsertDateAsyc(bossActivityDAO, bossActivity);
         insertDateAsyc.execute();
     }
 
 
-    public class InsertDateAsyc extends AsyncTask<BossActivity, Void, Void>{
+    public class InsertDateAsyc extends AsyncTask<BossActivity, Void, Void> {
         private BossActivityDAO bossActivityDAO;
-private BossActivity newBossActivity;
+        private BossActivity newBossActivity;
 
         public InsertDateAsyc(BossActivityDAO bossActivityDAO, BossActivity newBossActivity) {
             this.bossActivityDAO = bossActivityDAO;
@@ -84,8 +85,9 @@ private BossActivity newBossActivity;
         }
     }
 
-    public  interface  getDataCallBack{
+    public interface getDataCallBack {
         void CallBackSuccess(List<BossActivity> bossActivities);
+
         void CallBackFail(String message);
     }
 }

@@ -2,6 +2,7 @@ package mboss.tsm.Model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -11,7 +12,12 @@ import java.io.Serializable;
 
 @Entity(tableName = "BossActivity")
 public class BossActivity implements Serializable {
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "bossActivityID")
+    @SerializedName("bossActivityID")
+    @Expose
+    public Integer ID;
+
     @ColumnInfo(name = "BossID")
     @SerializedName("BossID")
     @Expose
@@ -20,6 +26,10 @@ public class BossActivity implements Serializable {
     @ColumnInfo(name = "ActivityID")
     @SerializedName("ActivityID")
     public Integer activityID;
+    @Expose
+    @ColumnInfo(name = "CategoryID")
+    @SerializedName("CategoryID")
+    public Integer CategoryID;
     @Expose
     @ColumnInfo(name = "Date")
     @SerializedName("Date")
@@ -98,5 +108,13 @@ public class BossActivity implements Serializable {
 
     public void setNotificationStatus(boolean notificationStatus) {
         this.notificationStatus = notificationStatus;
+    }
+
+    public Integer getCategoryID() {
+        return CategoryID;
+    }
+
+    public void setCategoryID(Integer categoryID) {
+        CategoryID = categoryID;
     }
 }

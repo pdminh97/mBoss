@@ -159,20 +159,18 @@ public class BossDetailFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void intentDateListFragment(Category bossCategory, int postion) {
-
+    private void intentDateListActivity(Category bossCategory, int postion) {
         Intent intent = new Intent(getActivity(), DateListActivity.class);
         Bundle bundle = new Bundle();
+//        int BossID = mBoss.getBossID();
         String bossName = mBoss.getBossName();
+        bundle.putInt("BOSSID", mBoss.getBossID());
         bundle.putInt("Position", postion);
         bundle.putString("BossName", bossName);
         bundle.putSerializable(TITLE, bossCategory);
         bundle.putInt("ID", BossId);
         bundle.putSerializable("bundle", (Serializable) bossCategories);
         intent.putExtras(bundle);
-//        bundle.putSerializable(TITLE, bossCategory);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
         startActivityForResult(intent, 1);
 
     }
@@ -195,7 +193,7 @@ public class BossDetailFragment extends Fragment {
                 mAdapter.setItemOnListenner(new BossCategoryListRecyclerViewAdapter.OnItemListener() {
                     @Override
                     public void OnClickItemListener(int postion) {
-                        intentDateListFragment(bossCategories.get(postion), postion);
+                        intentDateListActivity(bossCategories.get(postion), postion);
 
                     }
                 });

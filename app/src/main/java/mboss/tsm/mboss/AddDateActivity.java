@@ -37,7 +37,7 @@ public class AddDateActivity extends AppCompatActivity {
     private TextView status_notification;
     private AlarmReceiver alarm;
     private Switch bell;
-
+    int categoryID, bossID;
     Context context;
     private AddDateActivity inst;
     int year, month, day, hour, minute;
@@ -58,6 +58,8 @@ public class AddDateActivity extends AppCompatActivity {
         final Intent getIntent = getIntent();
         category = getIntent.getExtras().getString("CATEGORY");
         bossName = getIntent.getExtras().getString("BOSSNAME");
+        categoryID = getIntent.getExtras().getInt("categoryID");
+        bossID = getIntent.getExtras().getInt("bossID");
         initialView();
         initialData();
     }
@@ -65,8 +67,6 @@ public class AddDateActivity extends AppCompatActivity {
     private void initialView() {
         final Calendar calendar = Calendar.getInstance();
         datePicker = findViewById(R.id.edtDate);
-//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyy");
-//        datePicker.setText(simpleDateFormat.format(calendar.getTime()));
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +92,16 @@ public class AddDateActivity extends AppCompatActivity {
         newBossActivity.setNote(note.getText().toString());
         newBossActivity.setTime(timePicker.getText().toString());
         newBossActivity.setNotificationStatus(check);
+        newBossActivity.setCategoryID(categoryID);
+        newBossActivity.setBossID(bossID);
         BossActivityRepository bossActivityRepository = new BossActivityRepository(AddDateActivity.this);
         bossActivityRepository.insertDate(newBossActivity);
 
         Intent intent = new Intent(AddDateActivity.this, DateListActivity.class);
         intent.putExtra("CATEGORY", category);
         intent.putExtra("BOSSNAME", bossName);
+        intent.putExtra("BOSSID", bossID);
+        intent.putExtra("CATEGORYID", categoryID);
         intent.putExtra("CHECK", check);
         intent.putExtra("mBoss",  newBossActivity);
         setResult(RESULT_OK, intent);

@@ -31,12 +31,16 @@ public class DateListActivity extends AppCompatActivity {
     private TextView title;
     private Switch on_off;
     private String bossName;
+    private int bossID;
+    private int categotyID;
     public static final int RequestCodeCategory = 2;
     public static final String CODECATE = "CATE";
-    private String CATEGOTY;
-    private String BOSSNAME;
+    private String CATEGOTYreturn;
+    private String BOSSNAMEreturn;
     private Boolean CHECK;
     private BossActivity mBoss;
+    private int CATEGORYIDreturn;
+    private int BOSSIDreturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class DateListActivity extends AppCompatActivity {
         Intent intent = getIntent();
 //        boolean check = intent.getExtras().getBoolean("CHECK");
         bossName = intent.getExtras().getString("BossName");
+        bossCategory = (Category) intent.getSerializableExtra(BossDetailFragment.TITLE);
+        bossID = intent.getExtras().getInt("BOSSID");
         on_off = (Switch) findViewById(R.id.on_off_notification);
 //        if (check) on_off.setChecked(true);
         title = findViewById(R.id.txtTitleCategory);
@@ -64,17 +70,15 @@ public class DateListActivity extends AppCompatActivity {
     }
 
     private void iniatialData() {
-        Intent intent = getIntent();
-        bossCategory = (Category) intent.getSerializableExtra(BossDetailFragment.TITLE);
-
+        categotyID = bossCategory.getCategoryID();
         if (bossCategory.getName() != null) {
             title.setText(bossCategory.getName());
-        } else if (CATEGOTY != null) {
-            title.setText(CATEGOTY);
+        } else if (CATEGOTYreturn != null) {
+            title.setText(CATEGOTYreturn);
         }
 
         BossActivityRepository bossActivityRepository = new BossActivityRepository(DateListActivity.this);
-        bossActivityRepository.getAllDate(new BossActivityRepository.getDataCallBack() {
+        bossActivityRepository.getAllDate(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
             @Override
             public void CallBackSuccess(List<BossActivity> bossActivities) {
                 mBossActivity = bossActivities;
@@ -89,15 +93,26 @@ public class DateListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DateListActivity.this, AddDateActivity.class);
+                //AddDateActivity back and return data
                 if (bossCategory.getName() != null) {
                     intent.putExtra("CATEGORY", bossCategory.getName());
                 } else {
-                    intent.putExtra("CATEGORY", CATEGOTY);
+                    intent.putExtra("CATEGORY", CATEGOTYreturn);
                 }
                 if (bossName != null) {
                     intent.putExtra("BOSSNAME", bossName);
                 } else {
-                    intent.putExtra("BOSSNAME", BOSSNAME);
+                    intent.putExtra("BOSSNAME", BOSSNAMEreturn);
+                }
+                if (categotyID > -1) {
+                    intent.putExtra("categoryID", categotyID);
+                } else {
+                    intent.putExtra("categoryID", CATEGORYIDreturn);
+                }
+                if (bossID > -1) {
+                    intent.putExtra("bossID", bossID);
+                } else {
+                    intent.putExtra("bossID", BOSSIDreturn);
                 }
 //                startActivity(intent);
                 startActivityForResult(intent, RequestCodeCategory);
@@ -141,8 +156,10 @@ public class DateListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RequestCodeCategory && resultCode == RESULT_OK && data != null) {
-            CATEGOTY = data.getStringExtra("CATEGORY");
-            BOSSNAME = data.getStringExtra("BOSSNAME");
+            CATEGOTYreturn = data.getStringExtra("CATEGORY");
+            BOSSNAMEreturn = data.getStringExtra("BOSSNAME");
+            CATEGORYIDreturn = data.getExtras().getInt("CATEGORY");
+            BOSSIDreturn = data.getExtras().getInt("BOSSID");
             CHECK = data.getBooleanExtra("CHECK", false);
             mBoss = (BossActivity) data.getSerializableExtra("mBoss");
             if (mBoss != null) {

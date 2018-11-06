@@ -14,8 +14,8 @@ public interface BossActivityDAO {
     @Insert
     public  void insertDate(BossActivity bossActivity);
 
-    @Query("SELECT * FROM BossActivity")
-    public List<BossActivity> getDatePicker();
+    @Query("SELECT * FROM BossActivity where BossID =:BossID and CategoryID =:CategoryID")
+    public List<BossActivity> getDatePicker(int BossID, int CategoryID);
 
     @Delete
     public  void deleteDate(BossActivity bossActivity);
