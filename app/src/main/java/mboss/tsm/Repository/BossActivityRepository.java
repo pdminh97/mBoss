@@ -19,7 +19,7 @@ public class BossActivityRepository {
 
     public BossActivityRepository(Activity parentActivity) {
         AppDatabase database = AppDatabase.getInstance(parentActivity.getApplicationContext());
-//        bossActivityDAO = database.bossActivityDAO();
+        diaryDAO = database.diaryDAO();
         this.parentActivity = parentActivity;
     }
 

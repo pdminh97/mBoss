@@ -1,20 +1,17 @@
 package mboss.tsm.Model;
 
-import android.annotation.SuppressLint;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.List;
 
 //@SuppressLint("ParcelCreator")
-@Entity(tableName = "Diary")
-public class Diary implements Parcelable {
+@Entity(tableName = "DiaryTest")
+public class DiaryTest implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "DiaryID")
     private int DiaryID;
@@ -37,42 +34,21 @@ public class Diary implements Parcelable {
     @Ignore
     private List<Tag> tageds;
 
-    public Diary(String content, String diaryTime) {
+    public DiaryTest(String content, String diaryTime) {
         Content = content;
         DiaryTime = diaryTime;
     }
 
 
-    public Diary(String content) {
+    public DiaryTest(String content) {
         Content = content;
     }
 
-    public Diary() {
+    public DiaryTest() {
     }
 
-    protected Diary(Parcel in) {
-        DiaryID = in.readInt();
-        BossID = in.readInt();
-        CategoryID = in.readInt();
-        Content = in.readString();
-        DiaryTime = in.readString();
-        Status = in.readByte() != 0;
-        Image = in.readString();
-        NotifyChecked = in.readByte() != 0;
-        UriImages = in.createTypedArrayList(Uri.CREATOR);
-    }
 
-    public static final Creator<Diary> CREATOR = new Creator<Diary>() {
-        @Override
-        public Diary createFromParcel(Parcel in) {
-            return new Diary(in);
-        }
 
-        @Override
-        public Diary[] newArray(int size) {
-            return new Diary[size];
-        }
-    };
 
     public List<Tag> getTageds() {
         return tageds;
@@ -154,21 +130,5 @@ public class Diary implements Parcelable {
         CategoryID = categoryID;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(DiaryID);
-        dest.writeInt(BossID);
-        dest.writeInt(CategoryID);
-        dest.writeString(Content);
-        dest.writeString(DiaryTime);
-        dest.writeByte((byte) (Status ? 1 : 0));
-        dest.writeString(Image);
-        dest.writeByte((byte) (NotifyChecked ? 1 : 0));
-        dest.writeTypedList(UriImages);
-    }
 }

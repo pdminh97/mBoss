@@ -88,6 +88,7 @@ public class AddDateActivity extends AppCompatActivity {
 
     public void clickToAdd(View view) {
         newBossActivity = new Diary();
+        Log.e("ER", datePicker.getText().toString()+" "+timePicker.getText().toString());
         newBossActivity.setDiaryTime(datePicker.getText().toString()+" "+timePicker.getText().toString());
         newBossActivity.setContent(note.getText().toString());
 //        newBossActivity.setTime(timePicker.getText().toString());
@@ -147,7 +148,7 @@ public class AddDateActivity extends AppCompatActivity {
                         hour = hourOfDay;
                         minute = minute1;
                         Log.e("Time hour of day: ", hour + " " + minute);
-                        SimpleDateFormat simpleTimeformat = new SimpleDateFormat("HH:mm");
+                        SimpleDateFormat simpleTimeformat = new SimpleDateFormat("HH:mm:ss");
                         timePicker.setText(simpleTimeformat.format(calendar.getTime()));
                     }
                 }, hour, minute, false);

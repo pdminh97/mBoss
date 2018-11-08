@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import mboss.tsm.Fragment.BossDetailFragment;
-import mboss.tsm.Model.BossActivity;
 import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.RecyclerViewAdapter.DateListRecyclerViewAdapter;
@@ -93,8 +91,8 @@ public class DateListActivity extends AppCompatActivity {
         message_empty = findViewById(R.id.empty_item_message_at_history);
         image_mBoss = findViewById(R.id.image_at_history);
         frameLayout = findViewById(R.id.fragmentLayoutHistory);
-    }
 
+    }
     public void iniatialData() {
         categotyID = bossCategory.getCategoryID();
         if (bossCategory.getName() != null) {
@@ -103,19 +101,19 @@ public class DateListActivity extends AppCompatActivity {
             title.setText(CATEGOTYreturn);
         }
         BossActivityRepository bossActivityRepository = new BossActivityRepository(DateListActivity.this);
-        bossActivityRepository.getDatePickedForBossActivity(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
+              bossActivityRepository.getDatePickedForBossActivity(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
                     @Override
                     public void CallBackSuccess(List<Diary> mBossDiaries) {
-                        mBossActivity = mBossDiaries;
+                        if(mBossDiaries!=null){
+                        mBossActivity = mBossDiaries;}
                         updateDateList(mBossActivity);
                     }
 
                     @Override
                     public void CallBackFail(String message) {
-
                     }
                 });
-                bossActivityRepository.getDatePickerForBossActivityCompleted(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
+              bossActivityRepository.getDatePickerForBossActivityCompleted(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
                     @Override
                     public void CallBackSuccess(List<Diary> mBossDiaries) {
                      mBossActivityHistory = mBossDiaries;
