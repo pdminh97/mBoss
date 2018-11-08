@@ -20,7 +20,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#d0d4db">
+                    android:background="#ffffff">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -34,38 +34,44 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="Hủy"
+                                android:textColor="#00B4DB"
                                 android:id="@+id/btnCancel"
-                                android:textAllCaps="false"/>
+                                android:textAllCaps="false"
+                                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"/>
+                                android:layout_weight="1"
+                                android:text="Tạo Bài Nhật Ký"
+                                android:gravity="center"/>
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="Lưu"
                                 android:id="@+id/btnSave"
-                                android:textAllCaps="false"/>
+                                android:textAllCaps="false"
+                                android:background="#00B4DB"
+                                style="@style/Widget.AppCompat.Button.Colored"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#ffffff"
                             android:orientation="vertical">
+                            <android.support.v7.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rvTaged">
+                            </android.support.v7.widget.RecyclerView>
+
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textMultiLine"
                                 android:gravity="top"
                                 android:lines="5"
-                                android:id="@+id/edtDiaryContent"/>
-
-                            <!--<android.support.v7.widget.RecyclerView-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:id="@+id/rvTaged">-->
-
-                            <!--</android.support.v7.widget.RecyclerView>-->
+                                android:id="@+id/edtDiaryContent"
+                                android:hint="Hôm nay hoàng thượng của bạn thế nào?"/>
 
                             <!--<LinearLayout-->
                                 <!--android:layout_width="match_parent"-->
@@ -92,7 +98,8 @@
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/rvImagesAddNewDiary"></android.support.v7.widget.RecyclerView>
+                                android:id="@+id/rvImagesAddNewDiary">
+                            </android.support.v7.widget.RecyclerView>
                         </LinearLayout>
                     </LinearLayout>
                 </FrameLayout>
@@ -124,26 +131,26 @@
                             android:textSize="20dp"
                             android:layout_marginLeft="10dp"/>
                     </LinearLayout>
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:gravity="center"-->
-                        <!--android:id="@+id/lnTag">-->
-                        <!--<ImageView-->
-                            <!--android:layout_width="30dp"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:src="@drawable/tag"/>-->
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:text="Thẻ"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textSize="20dp"-->
-                            <!--android:layout_marginLeft="10dp"/>-->
-                    <!--</LinearLayout>-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/lnTag">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/tag"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Thẻ"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            android:layout_marginLeft="10dp"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -151,7 +158,12 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tag_boss_list_container"></FrameLayout>
+            android:id="@+id/tag_boss_list_container">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </FrameLayout>
     </FrameLayout>
 
 

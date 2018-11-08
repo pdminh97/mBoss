@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Header"
+        android:textSize="20dp"
+        android:id="@+id/price_expendable_header"
+        android:layout_weight="1"/>
+    <ImageView
+        android:layout_marginRight="20dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/ivGroupIndicator"
+        android:background="@drawable/group_indicator"
+        android:layout_gravity="center"/>
+</LinearLayout>

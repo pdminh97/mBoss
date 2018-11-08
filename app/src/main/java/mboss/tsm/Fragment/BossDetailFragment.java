@@ -99,7 +99,7 @@ public class BossDetailFragment extends Fragment {
 //        mBoss = (Boss)intent.getSerializableExtra(BossListActivity.BOSSES);
 //        Log.e("hehe", "name: "+ mBoss.getBossName() + " gender: " +mBoss.getGender()+ " special: "+ mBoss.getSpecies() +"Pic: "+ mBoss.getPictures());
         title.setText(mBoss.getBossName());
-        if(mBoss!=null) {
+        if (mBoss != null) {
             tvGenderDetail.setText(mBoss.getGender());
             tvNameDetail.setText(mBoss.getBossName());
             tvSpeciesDetail.setText(mBoss.getSpecies());
@@ -149,6 +149,11 @@ public class BossDetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == EditBossActivity.RESULT_OK && data != null) {
+            mBoss = (Boss) data.getSerializableExtra("MBOSS");
+            }
+            iniatialData();
+
     }
 
     private void intentToCategoryList(Boss boss) {

@@ -3,6 +3,8 @@ package mboss.tsm.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Service {
     @SerializedName("ServiceID")
     @Expose
@@ -22,6 +24,17 @@ public class Service {
     @SerializedName("Rating")
     @Expose
     private double rating;
+    @SerializedName("ServiceDetails")
+    @Expose
+    private List<ServiceDetail> serviceDetails;
+
+    public List<ServiceDetail> getServiceDetails() {
+        return serviceDetails;
+    }
+
+    public void setServiceDetails(List<ServiceDetail> serviceDetails) {
+        this.serviceDetails = serviceDetails;
+    }
 
     public int getServiceID() {
         return serviceID;

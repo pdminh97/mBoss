@@ -50,8 +50,19 @@ public class BossActivity implements Serializable {
     @ColumnInfo(name = "NotificationStatus")
     @SerializedName("NotificationStatus")
     public boolean notificationStatus;
-
+    @Expose
+    @ColumnInfo(name = "Status")
+    @SerializedName("Status")
+    public boolean status;
     public BossActivity() {
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Integer getBossID() {

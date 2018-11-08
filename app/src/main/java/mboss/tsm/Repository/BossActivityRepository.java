@@ -6,47 +6,53 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import mboss.tsm.DAO.BossActivityDAO;
-import mboss.tsm.Model.BossActivity;
+import mboss.tsm.DAO.DiaryDAO;
+import mboss.tsm.Model.Diary;
 import mboss.tsm.Utility.AppDatabase;
 
 public class BossActivityRepository {
     private Context context;
-    private BossActivityDAO bossActivityDAO;
+//    private BossActivityDAO bossActivityDAO;
+    private DiaryDAO diaryDAO;
+
     private Activity parentActivity;
-    int BossID;
 
     public BossActivityRepository(Activity parentActivity) {
         AppDatabase database = AppDatabase.getInstance(parentActivity.getApplicationContext());
-        bossActivityDAO = database.bossActivityDAO();
+//        bossActivityDAO = database.bossActivityDAO();
         this.parentActivity = parentActivity;
     }
 
-    public void getAllDate(int BossID, int CategoryID, getDataCallBack getDataCallBack) {
-        GetAllDateAsyc getAllDateAsyc = new GetAllDateAsyc(BossID, CategoryID, bossActivityDAO, getDataCallBack);
+    public void getDatePickedForBossActivity(int BossID, int CategoryID, getDataCallBack getDataCallBack) {
+        GetAllDateAsyc getAllDateAsyc = new GetAllDateAsyc(BossID, CategoryID, diaryDAO, getDataCallBack);
         getAllDateAsyc.execute();
 
     }
 
+    public void getDatePickerForBossActivityCompleted(int BossID, int CategoryID, getDataCallBack getDataCallBack) {
+        GetAllDateBossActivityDone getAllDateBossActivityDone = new GetAllDateBossActivityDone(BossID, CategoryID, diaryDAO, getDataCallBack);
+        getAllDateBossActivityDone.execute();
+    }
 
-    private class GetAllDateAsyc extends AsyncTask<Void, Void, List<BossActivity>> {
-        List<BossActivity> bossActivities;
+
+    private class GetAllDateBossActivityDone extends AsyncTask<Void, Void, List<Diary>> {
+        List<Diary> diaries;
         private getDataCallBack mGetDataCallBack;
-        private BossActivityDAO bossActivityDAO;
+        private DiaryDAO diaryDAO;
         int BossID;
         int CategoryID;
 
-        public GetAllDateAsyc(int BossID, int CategoryID,BossActivityDAO bossActivityDAO, getDataCallBack mGetDataCallBack) {
-            this.mGetDataCallBack = mGetDataCallBack;
-            this.bossActivityDAO = bossActivityDAO;
-            this.BossID = BossID;
-            this.CategoryID = CategoryID;
+
+        protected List<Diary> doInBackground(Void... voids) {
+            diaries = diaryDAO.getBossActivityCompleted(BossID, CategoryID);
+            return diaries;
         }
 
-        @Override
-        protected List<BossActivity> doInBackground(Void... voids) {
-            bossActivities = bossActivityDAO.getDatePicker(BossID, CategoryID);
-            return bossActivities;
+        public GetAllDateBossActivityDone(int BossID, int CategoryID, DiaryDAO diaryDAO, getDataCallBack mGetDataCallBack) {
+            this.mGetDataCallBack = mGetDataCallBack;
+            this.diaryDAO = diaryDAO;
+            this.BossID = BossID;
+            this.CategoryID = CategoryID;
         }
 
         @Override
@@ -55,38 +61,96 @@ public class BossActivityRepository {
         }
 
         @Override
-        protected void onPostExecute(List<BossActivity> bossActivities) {
-            super.onPostExecute(bossActivities);
-            mGetDataCallBack.CallBackSuccess(bossActivities);
+        protected void onPostExecute(List<Diary> diaries) {
+            super.onPostExecute(diaries);
+            mGetDataCallBack.CallBackSuccess(diaries);
+        }
+    }
+
+    private class GetAllDateAsyc extends AsyncTask<Void, Void, List<Diary>> {
+        List<Diary> mBossDiaries;
+        private getDataCallBack mGetDataCallBack;
+//        private BossActivityDAO bossActivityDAO;
+        private DiaryDAO diaryDAO;
+        int BossID;
+        int CategoryID;
+
+        public GetAllDateAsyc(int BossID, int CategoryID, DiaryDAO diaryDAO, getDataCallBack mGetDataCallBack) {
+            this.mGetDataCallBack = mGetDataCallBack;
+            this.diaryDAO = diaryDAO;
+            this.BossID = BossID;
+            this.CategoryID = CategoryID;
+        }
+
+        @Override
+        protected List<Diary> doInBackground(Void... voids) {
+            mBossDiaries = diaryDAO.getDatePickedForBossActivity(BossID, CategoryID);
+            return mBossDiaries;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(List<Diary> mBossDiaries) {
+            super.onPostExecute(mBossDiaries);
+            mGetDataCallBack.CallBackSuccess(mBossDiaries);
         }
     }
 
 
-    public void insertDate(BossActivity bossActivity) {
-        InsertDateAsyc insertDateAsyc = new InsertDateAsyc(bossActivityDAO, bossActivity);
+    public void insertDatePickerToDiary(Diary newDiary) {
+        InsertDateAsyc insertDateAsyc = new InsertDateAsyc(diaryDAO, newDiary);
         insertDateAsyc.execute();
     }
 
+    public class InsertDateAsyc extends AsyncTask<Diary, Void, Void> {
+        private DiaryDAO diaryDAO;
+        private Diary newDiary;
 
-    public class InsertDateAsyc extends AsyncTask<BossActivity, Void, Void> {
-        private BossActivityDAO bossActivityDAO;
-        private BossActivity newBossActivity;
-
-        public InsertDateAsyc(BossActivityDAO bossActivityDAO, BossActivity newBossActivity) {
-            this.bossActivityDAO = bossActivityDAO;
-            this.newBossActivity = newBossActivity;
+        public InsertDateAsyc(DiaryDAO diaryDAO, Diary newDiary) {
+            this.diaryDAO = diaryDAO;
+            this.newDiary = newDiary;
         }
 
 
         @Override
-        protected Void doInBackground(BossActivity... bossActivities) {
-            bossActivityDAO.insertDate(newBossActivity);
+        protected Void doInBackground(Diary... diaries) {
+            diaryDAO.insertDiary(newDiary);
+            return null;
+        }
+    }
+
+    public void finishBossActivity(Diary diary, getStatusCallBack getStatusCallBack) {
+        finishBossActivityAsync finishBossActivityAsync = new finishBossActivityAsync(diaryDAO, getStatusCallBack);
+        finishBossActivityAsync.execute(diary);
+    }
+
+    public class finishBossActivityAsync extends AsyncTask<Diary, Void, Void> {
+        private DiaryDAO diaryDAO;
+        private getStatusCallBack getStatusCallBack;
+
+        public finishBossActivityAsync(DiaryDAO diaryDAO, getStatusCallBack getStatusCallBack) {
+            this.diaryDAO = diaryDAO;
+            this.getStatusCallBack = getStatusCallBack;
+        }
+        @Override
+        protected Void doInBackground(Diary... diaries) {
+            diaryDAO.completeBossActivity(diaries);
             return null;
         }
     }
 
     public interface getDataCallBack {
-        void CallBackSuccess(List<BossActivity> bossActivities);
+        void CallBackSuccess(List<Diary> mBossDiaries);
+
+        void CallBackFail(String message);
+    }
+
+    public interface getStatusCallBack {
+        void CallBackSuccess(Diary diary);
 
         void CallBackFail(String message);
     }

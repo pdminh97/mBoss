@@ -20,7 +20,6 @@ import mboss.tsm.Model.Boss;
 import mboss.tsm.RecyclerViewAdapter.BossListRecyclerViewAdapter;
 import mboss.tsm.Repository.BossRepository;
 import mboss.tsm.mboss.AddNewBossActivity;
-import mboss.tsm.mboss.MainActivity;
 import mboss.tsm.mboss.R;
 
 public class MyBossesFragment extends Fragment {
@@ -32,6 +31,7 @@ public class MyBossesFragment extends Fragment {
     private TextView emptyView;
     private ImageView emptyImage;
     private FrameLayout frameLayout;
+    private Boss mBoss;
 
     public MyBossesFragment() {
         // Required empty public constructor
@@ -54,8 +54,8 @@ public class MyBossesFragment extends Fragment {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         emptyView = (TextView) view.findViewById(R.id.empty_item_message);
-        emptyImage=view.findViewById(R.id.empty_item_image);
-        frameLayout=view.findViewById(R.id.frameLayout);
+        emptyImage = view.findViewById(R.id.empty_item_image);
+        frameLayout = view.findViewById(R.id.frameLayout);
 
 
     }
@@ -77,11 +77,19 @@ public class MyBossesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddNewBossActivity.class);
-                startActivity(intent);
-//        startActivityForResult(intent,1);
+//                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == AddNewBossActivity.RESULT_OK && data != null) {
+                iniatialData();
+        }
+        iniatialData();
     }
 
     private void update() {
@@ -105,6 +113,7 @@ public class MyBossesFragment extends Fragment {
                         showBossDetail(mListBoss.get(position));
                     }
                 });
+
             } else {
                 mAdapter.notifyDataSetChanged();
             }

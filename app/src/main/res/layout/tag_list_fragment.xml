@@ -7,7 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,9 +18,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hủy"
-                android:id="@+id/btnCancelTag"/>
+                android:textColor="#00B4DB"
+                android:id="@+id/btnCancelTag"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Gắn Thẻ Boss"
+                android:gravity="center"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00B4DB"
+                android:text="Xong"
+                android:id="@+id/btnSaveTag"
+                style="@style/Widget.AppCompat.Button.Colored"/>
         </LinearLayout>
     </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvTaging">
+    </android.support.v7.widget.RecyclerView>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

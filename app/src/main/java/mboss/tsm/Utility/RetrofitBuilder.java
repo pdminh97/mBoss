@@ -15,7 +15,7 @@ public class RetrofitBuilder {
     public static Retrofit getBuilder(String baseURL) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(120, TimeUnit.SECONDS)
-                .connectTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")

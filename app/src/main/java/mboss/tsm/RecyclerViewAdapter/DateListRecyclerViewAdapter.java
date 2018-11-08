@@ -5,24 +5,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import mboss.tsm.Model.BossActivity;
+import mboss.tsm.Model.Diary;
 import mboss.tsm.mboss.DateListActivity;
 import mboss.tsm.mboss.R;
 
- public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRecyclerViewAdapter.ViewHolder> {
-    List<BossActivity> bossActivityList;
+public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRecyclerViewAdapter.ViewHolder> {
+    List<Diary> bossActivityList;
     private setOnIteamlistener onIteamlistener;
     private DateListActivity context;
 
 
-    public DateListRecyclerViewAdapter(List<BossActivity> bossActivityList) {
+    public DateListRecyclerViewAdapter(List<Diary> bossActivityList, DateListActivity context) {
         this.bossActivityList = bossActivityList;
+        this.context = context;
     }
 
     @NonNull
@@ -35,14 +39,22 @@ import mboss.tsm.mboss.R;
 
     @Override
     public void onBindViewHolder(@NonNull DateListRecyclerViewAdapter.ViewHolder viewHolder, final int pos) {
-        viewHolder.tvDate.setText(bossActivityList.get(pos).getDate());
-        viewHolder.tvTime.setText(bossActivityList.get(pos).getTime());
+        Date diaryDate = parseDate(bossActivityList.get(pos).getDiaryTime());
+
+        viewHolder.tvDate.setText(diaryDate.getDate() + "/" + diaryDate.getMonth()+"/"+diaryDate.getYear());
+        viewHolder.tvTime.setText(diaryDate.getHours()+":"+diaryDate.getMinutes());
         viewHolder.mLnlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onIteamlistener!=null){
+                if (onIteamlistener != null) {
                     onIteamlistener.setOnIteamListener(pos);
                 }
+            }
+        });
+        viewHolder.addToHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.DialogDoneActivity(pos);
             }
         });
 //        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +63,6 @@ import mboss.tsm.mboss.R;
 //                //context.DialogDeleteDate();
 //            }
 //        });
-
     }
 
     @Override
@@ -74,16 +85,26 @@ import mboss.tsm.mboss.R;
         private TextView tvDate;
         private TextView tvTime;
         private LinearLayout mLnlRoot;
-        private ImageButton edit;
-        private ImageButton delete;
+        private Button addToHistory;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.txt_date);
             tvTime = itemView.findViewById(R.id.txt_time);
-
             mLnlRoot = itemView.findViewById(R.id.lnlRoot);
-//            delete=itemView.findViewById(R.id.delete_date);
+            addToHistory = itemView.findViewById(R.id.btn_done);
+
 
         }
+    }
+
+    private Date parseDate(String dateString) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            return dateFormat.parse(dateString);
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }

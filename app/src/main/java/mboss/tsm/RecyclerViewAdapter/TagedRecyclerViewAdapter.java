@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,14 +27,18 @@ public class TagedRecyclerViewAdapter extends RecyclerView.Adapter<TagedRecycler
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.taged_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.civAvatar.setImageResource(context.getResources().getIdentifier(tags.get(i).getAvatar(), "drawable", context.getPackageName()));
+        Glide.with(context)
+                .load(context.getResources().getIdentifier(tags.get(i).getAvatar(), "drawable", context.getPackageName()))
+                .placeholder(R.drawable.picture)
+                .dontAnimate()
+                .into(viewHolder.civAvatar);
     }
 
     @Override

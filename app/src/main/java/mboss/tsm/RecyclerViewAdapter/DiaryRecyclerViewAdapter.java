@@ -1,23 +1,31 @@
 package mboss.tsm.RecyclerViewAdapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import mboss.tsm.Fragment.DiaryFragment;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.mboss.R;
 
 public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecyclerViewAdapter.ViewHolder> {
     private List<Diary> diaries;
+    private DiaryFragment diaryFragment;
+    private Context context;
 
-    public DiaryRecyclerViewAdapter(List<Diary> diaries) {
+    public DiaryRecyclerViewAdapter(Context context, List<Diary> diaries, DiaryFragment diaryFragment) {
         this.diaries = diaries;
+        this.diaryFragment = diaryFragment;
+        this.context = context;
     }
 
     @NonNull
@@ -29,11 +37,19 @@ public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.time.setText(diaries.get(i).getDiaryTime());
         viewHolder.content.setText(diaries.get(i).getContent());
-        viewHolder.adapter = new DiaryImageRecyclerViewAdapter(diaries.get(i).getUriImages());
-        viewHolder.recyclerView.setAdapter(viewHolder.adapter);
+        viewHolder.imageAdapter = new DiaryImageRecyclerViewAdapter(context, diaries.get(i).getUriImages());
+        viewHolder.rvImage.setAdapter(viewHolder.imageAdapter);
+        viewHolder.tagAdapter = new TagedRecyclerViewAdapter(context, diaries.get(i).getTageds());
+        viewHolder.rvTag.setAdapter(viewHolder.tagAdapter);
+        viewHolder.threedot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                diaryFragment.showModifyFragment(i);
+            }
+        });
     }
 
     @Override
@@ -47,16 +63,20 @@ public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecycler
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         TextView content;
-        DiaryImageRecyclerViewAdapter adapter;
-        RecyclerView recyclerView;
+        DiaryImageRecyclerViewAdapter imageAdapter;
+        TagedRecyclerViewAdapter tagAdapter;
+        RecyclerView rvImage;
+        RecyclerView rvTag;
+        ImageView threedot;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.diary_item_time);
             content = itemView.findViewById(R.id.diary_item_content);
-            recyclerView = itemView.findViewById(R.id.rvDiaryImage);
-            //recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 3));
-            //recyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
-            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            rvImage = itemView.findViewById(R.id.rvDiaryImage);
+            rvTag = itemView.findViewById(R.id.rvDiaryTag);
+            threedot = itemView.findViewById(R.id.threedot);
+            rvImage.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            rvTag.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }
     }
 }

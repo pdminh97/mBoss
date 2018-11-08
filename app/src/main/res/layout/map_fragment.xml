@@ -3,32 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Chỉ Đường"
-            android:textAllCaps="false"
-            android:id="@+id/btnDirection"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text=""
-            android:gravity="center"
-            android:textSize="20dp"
-            android:id="@+id/txtDistance"/>
-    </LinearLayout>
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"></fragment>
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/map"
+                class="com.google.android.gms.maps.SupportMapFragment">
+            </fragment>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Chỉ Đường"
+                    android:textAllCaps="false"
+                    android:id="@+id/btnDirection"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:id="@+id/txtDistance"
+                    android:textColor="@color/com_facebook_blue"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+    </FrameLayout>
+
+
 </LinearLayout>

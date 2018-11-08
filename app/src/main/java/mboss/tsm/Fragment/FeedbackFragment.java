@@ -16,7 +16,7 @@ import java.util.List;
 
 import mboss.tsm.Model.Comment;
 import mboss.tsm.RecyclerViewAdapter.CommentRecyclerViewAdapter;
-import mboss.tsm.Repository.ServiceDetailRepository;
+import mboss.tsm.Repository.ClinicDetailRepository;
 import mboss.tsm.mboss.R;
 
 /**
@@ -38,7 +38,7 @@ public class FeedbackFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.feedback_fragment, container, false);
         int clinicID = getArguments().getInt("clinicID");
-        final ServiceDetailRepository repository = new ServiceDetailRepository(container.getContext());
+        final ClinicDetailRepository repository = new ClinicDetailRepository(container.getContext());
         repository.getCommentByClinicID(clinicID);
 
         btnComment = view.findViewById(R.id.btnComment);

@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/navigation_diary"
+        android:icon="@mipmap/diary_img"
+        android:title="@string/pet_diary" />
+
+    <item
         android:id="@+id/navigation_pet_list"
         android:icon="@mipmap/pawprint"
         android:title="@string/pet_list"
         />
-
-    <item
-        android:id="@+id/navigation_diary"
-        android:icon="@mipmap/diary_img"
-        android:title="@string/pet_diary" />
 
     <item
         android:id="@+id/navigation_service"

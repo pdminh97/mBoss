@@ -18,19 +18,19 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import mboss.tsm.BroadcashReceiver.AlarmReceiver;
 import mboss.tsm.Model.BossActivity;
+import mboss.tsm.Model.Diary;
 import mboss.tsm.Repository.BossActivityRepository;
 
 public class AddDateActivity extends AppCompatActivity {
     private TextView datePicker;
     private TextView timePicker;
     private EditText note;
-    private BossActivity newBossActivity;
+    private Diary newBossActivity;
     //s
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -87,15 +87,16 @@ public class AddDateActivity extends AppCompatActivity {
     }
 
     public void clickToAdd(View view) {
-        newBossActivity = new BossActivity();
-        newBossActivity.setDate(datePicker.getText().toString());
-        newBossActivity.setNote(note.getText().toString());
-        newBossActivity.setTime(timePicker.getText().toString());
-        newBossActivity.setNotificationStatus(check);
+        newBossActivity = new Diary();
+        newBossActivity.setDiaryTime(datePicker.getText().toString()+" "+timePicker.getText().toString());
+        newBossActivity.setContent(note.getText().toString());
+//        newBossActivity.setTime(timePicker.getText().toString());
+        newBossActivity.setNotifyChecked(check);
         newBossActivity.setCategoryID(categoryID);
         newBossActivity.setBossID(bossID);
+        newBossActivity.setStatus(false);
         BossActivityRepository bossActivityRepository = new BossActivityRepository(AddDateActivity.this);
-        bossActivityRepository.insertDate(newBossActivity);
+        bossActivityRepository.insertDatePickerToDiary(newBossActivity);
 
         Intent intent = new Intent(AddDateActivity.this, DateListActivity.class);
         intent.putExtra("CATEGORY", category);
@@ -173,14 +174,14 @@ public class AddDateActivity extends AppCompatActivity {
                     Log.e("Time", hour + " : " + minute + " date: " + day + "-" + month + "-" + year + "   " + hour + ":" + minute);
                     pendingIntent = PendingIntent.getBroadcast(AddDateActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                    setNotificationText("Thông báo bật");
+//                    setNotificationText("Thông báo bật");
 
                 } else if (!isChecked) {
                     check = isChecked;
                     intent.putExtra("extra", "no");
                     sendBroadcast(intent);
                     alarmManager.cancel(pendingIntent);
-                    setNotificationText("Thông báo tắt");
+//                    setNotificationText("Thông báo tắt");
                 }
             }
         });

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -44,6 +45,7 @@ public class EditBossActivity extends AppCompatActivity {
     private Uri resultUri;
     private ImageButton back;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,7 @@ public class EditBossActivity extends AppCompatActivity {
         edtWeight = findViewById(R.id.edtWeight);
         edtAvata = findViewById(R.id.editImage_avata);
         back = findViewById(R.id.btn_back);
+
         mBoss = new Boss();
         Intent intent = this.getIntent();
         mBoss = (Boss) intent.getSerializableExtra(BossDetailFragment.BUNDLE_EDIT_DATA);
@@ -183,6 +186,7 @@ public class EditBossActivity extends AppCompatActivity {
 
     }
 
+
     private void initialData() {
 
         edtAvata.setImageURI(Uri.parse(mBoss.getPictures()));
@@ -224,11 +228,11 @@ public class EditBossActivity extends AppCompatActivity {
 //        startActivity(intent);
 
 
-//        Intent intent1 = new Intent(EditBossActivity.this, BossDetailFragment.class);
-//        intent1.putExtra("MBOSS", mBoss);
-//        setResult(RESULT_OK, intent1);
-        finishActivity(1);
-//        finish();
+        Intent intent1 = new Intent();
+        intent1.putExtra("MBOSS", mBoss);
+        setResult(RESULT_OK, intent1);
+        finish();
+//        finishActivity(1);
     }
 
     public void initialDataImage() {
@@ -302,4 +306,6 @@ public class EditBossActivity extends AppCompatActivity {
 
 
     }
+
+
 }

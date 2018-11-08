@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mboss.tsm.Fragment.ClinicFragment"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tìm Kiếm Gần Đây"
+                        android:textAllCaps="false"
+                        android:id="@+id/btnFindNearBy"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="5"
+                            android:id="@+id/edtRadius"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="km"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/snView"
+                            android:visibility="gone">
+                        </Spinner>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rvClinic"
+                android:visibility="visible">
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/lnMapContainer"
+                android:visibility="gone">
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/map"
+                    class="com.google.android.gms.maps.SupportMapFragment">
+                </fragment>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:floatingSearch_leftActionMode="showHamburger"
+            app:floatingSearch_searchBarMarginLeft="5dp"
+            app:floatingSearch_searchBarMarginTop="5dp"
+            app:floatingSearch_searchBarMarginRight="5dp"
+            app:floatingSearch_searchHint="Tìm kiếm phòng khám"
+            app:floatingSearch_suggestionsListAnimDuration="250"
+            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            />
+
+
+    </FrameLayout>
+
+</LinearLayout>

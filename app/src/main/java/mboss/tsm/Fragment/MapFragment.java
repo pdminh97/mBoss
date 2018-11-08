@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,14 +17,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 
@@ -45,18 +49,19 @@ import java.util.List;
 
 import mboss.tsm.mboss.R;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleMap mMap;
     private LatLng position;
     private Context context;
     private LatLng currentLocation;
-    private LocationManager manager;
-    private LocationListener listener;
-    private Polyline polyline;
     private PolylineOptions polylineOptions;
     private MarkerOptions markerOptions;
     private Button btnDiraction;
     private TextView txtDistance;
+    private boolean fullZoom = true;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
     public MapFragment() {
     }
@@ -85,35 +90,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                             1);
                     return;
+                } else {
+                    GoogleApiClientBuilder();
+                    mGoogleApiClient.connect();
+                    fullZoom = true;
                 }
-
-                LocationListener locationListener = new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        //Toast.makeText(context, "Change", Toast.LENGTH_SHORT).show();
-                        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                        String url = getDirectionsUrl(currentLocation, position);
-                        DownloadDirectionData task = new DownloadDirectionData();
-                        task.execute(url);
-                    }
-
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                };
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 2, locationListener);
             }
         });
 
@@ -129,23 +110,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
+        } else {
+            mMap.setMyLocationEnabled(true);
 
-
-
-        markerOptions = new MarkerOptions();
-        markerOptions.position(position);
-        mMap.addMarker(markerOptions);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (!(ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            onMapReady(mMap);
+            markerOptions = new MarkerOptions();
+            markerOptions.position(position);
+            mMap.addMarker(markerOptions);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 17));
         }
     }
 
@@ -229,11 +200,74 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     polylineOptions.addAll(PolyUtil.decode(polylineList.get(i)));
                     mMap.addPolyline(polylineOptions);
                 }
-                txtDistance.setText(distance);
+                txtDistance.setText("Khoảng cách: " + distance);
+                if (fullZoom) {
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    builder.include(position);
+                    builder.include(currentLocation);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 48));
+                    fullZoom = false;
+                }
             }
         } catch (JSONException e) {
             Log.e("Direction Error", e.getMessage());
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(1000);
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation( mGoogleApiClient);
+            currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        GoogleApiClientBuilder();
+        Toast.makeText(getContext(), "Connect Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        String url = getDirectionsUrl(currentLocation, position);
+        DownloadDirectionData task = new DownloadDirectionData();
+        task.execute(url);
+    }
+
+    private void GoogleApiClientBuilder() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.disconnect();
     }
 
     private class DownloadDirectionData extends AsyncTask<String, Void, String> {
@@ -251,7 +285,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         @Override
         protected void onPostExecute(String result) {
-            super.onPostExecute(result);;
+            super.onPostExecute(result);
+            ;
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 drawPolygon(jsonObject);

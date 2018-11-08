@@ -29,5 +29,14 @@
         <p><b>\t\t\t\t\t\tDanh sách hoạt động trống!</b></p>\n\n
         <i>Để thêm hoạt động hãy nhấn vào nút \"+\"</i> \n \t\t\t\t\t\t\t\t\t<i>ở phía dưới màn hình</i>
     </string>
+    <string name="empty_message_history">
+        <p><b>\t\t\t\t\t\tLịch sử hoạt động trống!</b></p>\n\n
+    </string>
+    <string name="hint_today">
+        <i>Hôm nay thú cưng của bạn thế nào?</i>
+    </string>
+    <string name="detail_bossActivity">
+        <i>Hôm nay chúng ta cùng đi dạo ở một bãi biễn thật sinh đẹp nha! hehe !</i>
+    </string>
 
 </resources>

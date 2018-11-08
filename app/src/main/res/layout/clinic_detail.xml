@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:src="@drawable/left_arrow_key"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/btnBack"
+                android:onClick="clickToBack"
+                android:background="@color/transparent"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/logo"
+                    android:id="@+id/ivClinicImage"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginRight="10dp">
+
+                        <TextView
+                            android:id="@+id/txtClinicName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Clinic Name"
+                            android:textSize="20dp"/>
+
+                        <TextView
+                            android:id="@+id/txtClinicAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Clinic Address" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <RatingBar
+                            android:id="@+id/clinicRating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:rating="2.5"
+                            android:stepSize="0.1"
+                            android:layout_gravity="bottom"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:theme="@style/Theme.AppCompat.Light">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout"
+                        style="@style/Theme.AppCompat.Light"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:background="#ffffff"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="#00b4db"
+                        app:tabMode="fixed"
+                        app:tabTextColor="#00b4db"></android.support.design.widget.TabLayout>
+
+                </android.support.design.widget.AppBarLayout>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </LinearLayout>
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

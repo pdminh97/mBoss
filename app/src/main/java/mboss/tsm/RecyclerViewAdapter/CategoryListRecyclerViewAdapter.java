@@ -37,7 +37,6 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<Catego
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
         viewHolder.imageCategory.setImageResource(categories.get(pos).getImage());
         viewHolder.tvName.setText(categories.get(pos).getName());
-        viewHolder.tvName.setText(categories.get(pos).getName());
         viewHolder.mLnlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

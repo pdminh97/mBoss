@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#eaf4f3"
+    tools:context=".BossEditDateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eaf4f3">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#0083b0"
+                android:gravity="center"
+                android:text="Chi tiết"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:background="#0083b0"
+                android:tint="#fff"
+                android:src="@mipmap/left_arrow" />
+
+
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+        android:id="@+id/status_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Bật thông báo"
+        android:textColor="#00B4DB"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+        <Switch
+        android:id="@+id/bell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:checked="true"
+        android:textColor="#00B4DB"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:text="Ngày"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold" />-->
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@drawable/backgroundbutton"
+
+            android:textColorHint="#fff"
+            android:hint="20-11-2018" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:text="Thời gian: "-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold" />-->
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="@drawable/backgroundbutton"
+            android:textColorHint="#fff"
+            android:hint="10:00" />
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:paddingLeft="10dp"
+                android:text="Địa điểm: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:text="Phòng khám Sơn Ca, 45 Nguyễn Văn Thoại, Gò Vấp, thành phố Hồ Chí Minh"
+                android:textStyle="italic"
+                android:textSize="17dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:text="Ghi chú"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:text="@string/detail_bossActivity"
+                android:textStyle="italic"
+                android:textSize="17dp" />
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/frameLayoutDetail"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/empty_message_category"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="110dp"
+                android:text="@string/empty_message_category"
+                android:textColor="#a7a6a6"
+                android:textSize="15dp"
+                android:visibility="gone"
+
+
+                />
+
+            <ImageView
+                android:id="@+id/empty_image_category"
+                android:layout_width="170dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:alpha="0.25"
+                android:src="@drawable/logo"
+                android:layout_marginTop="30dp"
+                android:visibility="visible" />
+        </FrameLayout>
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/ibnClose"
+            android:layout_width="115dp"
+            android:layout_height="33dp"
+            android:background="@drawable/backgroundbutton"
+            android:text="Đóng"
+            android:textColor="#fff" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btnEditDetail"
+            android:layout_width="115dp"
+            android:layout_height="33dp"
+            android:background="@drawable/backgroundbutton"
+            android:text="Lưu"
+            android:onClick="clickToEditDate"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+</LinearLayout>

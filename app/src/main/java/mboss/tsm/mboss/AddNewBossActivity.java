@@ -260,14 +260,19 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
         newBoss.setBossWeight(Float.parseFloat(mBossWeight.getText().toString()));
         BossRepository bossRepository = new BossRepository(AddNewBossActivity.this);
         bossRepository.InsertBoss(newBoss);
-        intentToBossList();
+//        intentToBossList();
+        Intent intent = new Intent();
+        intent.putExtra("mBoss", newBoss);
+        setResult(RESULT_OK, intent);
+        finish();
 
 
     }
-    private  void intentToBossList(){
-        Intent intent = new Intent(AddNewBossActivity.this,MainActivity.class);
-        startActivity(intent);
-    }
+//    private  void intentToBossList(){
+//        Intent intent = new Intent(AddNewBossActivity.this,MainActivity.class);
+//        startActivity(intent);
+//        finishActivity(1);
+//    }
 
     @Override
     public void onClick(View v) {
