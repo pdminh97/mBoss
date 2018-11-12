@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import mboss.tsm.Model.Boss;
+import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.Model.Tag;
 import mboss.tsm.RecyclerViewAdapter.DiaryImageRecyclerViewAdapter;
@@ -39,12 +44,16 @@ public class DiaryAddNewFragment extends Fragment {
     private EditText edtDiaryContent;
     private LinearLayout lnPhoto;
     private LinearLayout lnTag;
+    private LinearLayout lnCategory;
     private int PICK_IMAGE_MULTIPLE = 1;
     private RecyclerView rvImage;
-    private List<Uri> imageUris;
+    private List<String> imageUris;
     private RecyclerView rvTaged;
     private TagListFragment tagListFragment;
-    private List<Tag> tagedList;
+    private CategoryListFragment categoryListFragment;
+    private CircleImageView civCategory;
+    private Category selectedCategory;
+    private List<Boss> tagedList;
     private Diary editedDiary;
     private TagedRecyclerViewAdapter tagAdapter;
     private DiaryImageRecyclerViewAdapter imageAdapter;
@@ -56,6 +65,7 @@ public class DiaryAddNewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setRetainInstance(true);
         View view = inflater.inflate(R.layout.diary_add_new, container, false);
         edtDiaryContent = view.findViewById(R.id.edtDiaryContent);
 
@@ -72,13 +82,16 @@ public class DiaryAddNewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editedDiary == null) {
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                     String current = format.format(new Date());
                     Diary diary = new Diary();
                     diary.setDiaryTime(current);
                     diary.setContent(edtDiaryContent.getText().toString());
                     diary.setUriImages(imageUris);
                     diary.setTageds(tagedList);
+                    diary.setStatus(true);
+                    if(selectedCategory != null)
+                        diary.setCategoryImage(selectedCategory.getImage());
                     Intent intent = new Intent();
                     intent.putExtra("diary", diary);
                     getTargetFragment().onActivityResult(1, 1, intent);
@@ -87,6 +100,8 @@ public class DiaryAddNewFragment extends Fragment {
                     editedDiary.setContent(edtDiaryContent.getText().toString());
                     editedDiary.setTageds(tagedList);
                     editedDiary.setUriImages(imageUris);
+                    if(selectedCategory != null)
+                        editedDiary.setCategoryImage(selectedCategory.getImage());
                     Intent intent = new Intent();
                     intent.putExtra("diary", editedDiary);
                     getTargetFragment().onActivityResult(1, 2, intent);
@@ -116,6 +131,15 @@ public class DiaryAddNewFragment extends Fragment {
                 showTagList();
             }
         });
+
+        lnCategory = view.findViewById(R.id.lnCategory);
+        lnCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategoryList();
+            }
+        });
+        civCategory = view.findViewById(R.id.category_diary);
 
         rvImage = view.findViewById(R.id.rvImagesAddNewDiary);
         imageUris = new ArrayList<>();
@@ -151,6 +175,7 @@ public class DiaryAddNewFragment extends Fragment {
                 imageUris.addAll(editedDiary.getUriImages());
                 imageAdapter.notifyDataSetChanged();
             }
+            civCategory.setImageResource(editedDiary.getCategoryImage());
             edtDiaryContent.setText(editedDiary.getContent());
             tagedList.clear();
             tagedList.addAll(editedDiary.getTageds());
@@ -166,20 +191,21 @@ public class DiaryAddNewFragment extends Fragment {
             //Select 1 image
             if (data.getData() != null) {
                 imageUris.clear();
-                imageUris.add(data.getData());
+                imageUris.add(data.getData().toString());
             }
 
             if (clipData != null) {
                 int imageCount = clipData.getItemCount();
                 imageUris.clear();
                 for (int i = 0; i < imageCount; i++) {
-                    imageUris.add(clipData.getItemAt(i).getUri());
+                    imageUris.add(clipData.getItemAt(i).getUri().toString());
                 }
             }
 
             if(imageUris != null) {
                 if(editedDiary != null) {
-                    imageUris.addAll(editedDiary.getUriImages());
+                    if(editedDiary.getUriImages() != null)
+                        imageUris.addAll(editedDiary.getUriImages());
                 }
                 imageAdapter.notifyDataSetChanged();
             }
@@ -188,8 +214,14 @@ public class DiaryAddNewFragment extends Fragment {
 
         if(requestCode == 2) {
             tagedList.clear();
-            tagedList.addAll((List<Tag>) data.getSerializableExtra("tagingList"));
+            tagedList.addAll((List<Boss>) data.getSerializableExtra("tagingList"));
             tagAdapter.notifyDataSetChanged();
+        }
+
+        if(requestCode == 3) {
+            selectedCategory = (Category) data.getSerializableExtra("selectedCategory");
+            if(selectedCategory != null)
+                civCategory.setImageResource(selectedCategory.getImage());
         }
     }
 
@@ -213,4 +245,19 @@ public class DiaryAddNewFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+
+    private void showCategoryList() {
+        if(categoryListFragment == null) {
+            categoryListFragment = new CategoryListFragment();
+        }
+
+        categoryListFragment.setTargetFragment(this, 3);
+
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.add_diary_up, R.anim.add_diary_down)
+                .add(R.id.tag_boss_list_container, categoryListFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
 }

@@ -12,14 +12,15 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.Tag;
 import mboss.tsm.mboss.R;
 
 public class TagingRecyclerViewAdapter extends RecyclerView.Adapter<TagingRecyclerViewAdapter.ViewHolder> {
-    private List<Tag> tagingList;
+    private List<Boss> tagingList;
     private Context context;
 
-    public TagingRecyclerViewAdapter(Context context, List<Tag> tagingList) {
+    public TagingRecyclerViewAdapter(Context context, List<Boss> tagingList) {
         this.tagingList = tagingList;
         this.context = context;
     }
@@ -35,7 +36,7 @@ public class TagingRecyclerViewAdapter extends RecyclerView.Adapter<TagingRecycl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Glide.with(context)
-                .load(context.getResources().getIdentifier(tagingList.get(i).getAvatar(), "drawable", context.getPackageName()))
+                .load(tagingList.get(i).getPictures())
                 .placeholder(R.drawable.picture)
                 .dontAnimate()
                 .into(viewHolder.civAvatar);

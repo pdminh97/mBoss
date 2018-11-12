@@ -1,6 +1,7 @@
 package mboss.tsm.Utility;
 
 import android.arch.persistence.room.TypeConverter;
+import android.net.Uri;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,9 +10,10 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
+import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.Category;
 
-public class ConvertCategoryType {
+public class ConvertType {
 //    @TypeConverter // note this annotation
 //    public String fromCategoryList(List<Category> category) {
 //        if (category == null) {
@@ -35,6 +37,28 @@ public class ConvertCategoryType {
 //        List<Category> cardType = gson.fromJson(categoryString, type);
 //        return cardType;
 //    }
+
+    @TypeConverter
+    public String fromUriList(List<String> uriImages) {
+        if(uriImages == null)
+            return null;
+        else {
+            Type type = new TypeToken<List<String>>(){}.getType();
+            return new Gson().toJson(uriImages, type);
+        }
+    }
+
+    @TypeConverter
+    public List<String> toUriList(String uriJson) {
+        if(uriJson == null)
+            return null;
+        else {
+            Type type = new TypeToken<List<String>>(){}.getType();
+            return new Gson().fromJson(uriJson, type);
+        }
+    }
+
+
 
     @TypeConverter
     public static List<Category> stringToSomeObjectList(String data) {

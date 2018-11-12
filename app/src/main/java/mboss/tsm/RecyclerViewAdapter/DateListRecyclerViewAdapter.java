@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import mboss.tsm.Model.BossActivity;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.mboss.DateListActivity;
 import mboss.tsm.mboss.R;
@@ -40,8 +39,10 @@ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRe
     @Override
     public void onBindViewHolder(@NonNull DateListRecyclerViewAdapter.ViewHolder viewHolder, final int pos) {
         Date diaryDate = parseDate(bossActivityList.get(pos).getDiaryTime());
-
-        viewHolder.tvDate.setText(diaryDate.getDate() + "/" + diaryDate.getMonth()+"/"+diaryDate.getYear());
+        int Year = Integer.parseInt(String.valueOf(diaryDate.getYear()));
+        Year = Year + 1900;
+        diaryDate.setYear(Year);
+        viewHolder.tvDate.setText(diaryDate.getDate() + "/" + diaryDate.getMonth()+"/"+ diaryDate.getYear());
         viewHolder.tvTime.setText(diaryDate.getHours()+":"+diaryDate.getMinutes());
         viewHolder.mLnlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +101,7 @@ public class DateListRecyclerViewAdapter extends RecyclerView.Adapter<DateListRe
 
     private Date parseDate(String dateString) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             return dateFormat.parse(dateString);
         } catch (Exception e) {
 

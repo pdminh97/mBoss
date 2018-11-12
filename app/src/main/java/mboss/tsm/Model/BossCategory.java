@@ -6,25 +6,20 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
-import com.google.gson.annotations.Expose;
-
 import java.io.Serializable;
 import java.util.List;
 
-import mboss.tsm.Utility.ConvertCategoryType;
+import mboss.tsm.Utility.ConvertType;
 
 @Entity(tableName = "BossCategory")
 public class BossCategory implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
-    //@Expose
     public int  id;
-
     @ColumnInfo(name = "BossID")
     public int  bossID;
-    //@Expose
     @ColumnInfo(name = "BossListCategory")
-    @TypeConverters(ConvertCategoryType.class)
+    @TypeConverters(ConvertType.class)
     public List<Category> mCategorytList;
 
 

@@ -16,53 +16,61 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import mboss.tsm.Fragment.CategoryListFragment;
 import mboss.tsm.Model.Boss;
+import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Tag;
 import mboss.tsm.Utility.ItemClickListener;
 import mboss.tsm.mboss.R;
 
-public class TagListRecyclerViewAdapter extends RecyclerView.Adapter<TagListRecyclerViewAdapter.ViewHolder> {
-    private List<Boss> tags;
+public class DiaryCategoryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryCategoryRecyclerViewAdapter.ViewHolder> {
+    private List<Category> categories;
     private Context context;
-    private List<Boss> taged;
-    private TagingRecyclerViewAdapter adapter;
+    private CategoryListFragment categoryListFragment;
+    private RecyclerView recyclerView;
 
-    public TagListRecyclerViewAdapter(List<Boss> tags, Context context, List<Boss> taged, TagingRecyclerViewAdapter adapter) {
-        this.tags = tags;
+    public DiaryCategoryRecyclerViewAdapter(List<Category> categories, Context context, CategoryListFragment categoryListFragment, RecyclerView recyclerView) {
+        this.categories = categories;
         this.context = context;
-        this.taged = taged;
-        this.adapter = adapter;
+        this.categoryListFragment = categoryListFragment;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.tag_list_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.diary_category_list_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         Glide.with(context)
-                .load(tags.get(i).getPictures())
+                .load(categories.get(i).getImage())
                 .placeholder(R.drawable.picture)
                 .dontAnimate()
                 .into(viewHolder.avatar);
-        viewHolder.name.setText(tags.get(i).getBossName());
+        viewHolder.name.setText(categories.get(i).getName());
         viewHolder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if(viewHolder.checked.getVisibility() == View.INVISIBLE) {
+                    for(int i = 0; i < categories.size(); i++) {
+                        ((ViewHolder)recyclerView.findViewHolderForAdapterPosition(i)).checked.setVisibility(View.INVISIBLE);
+                        ((ViewHolder)recyclerView.findViewHolderForAdapterPosition(i)).name.setTextColor(Color.parseColor("#808080"));
+                    }
                     viewHolder.checked.setVisibility(View.VISIBLE);
                     viewHolder.name.setTextColor(Color.parseColor("#006df0"));
-                    taged.add(tags.get(i));
-                    adapter.notifyItemInserted(taged.size() - 1);
+                    categoryListFragment.setSelectedCategory(categories.get(i));
                 } else {
-                    viewHolder.checked.setVisibility(View.INVISIBLE);
-                    viewHolder.name.setTextColor(Color.parseColor("#000000"));
-                    taged.remove(tags.get(i));
-                    adapter.notifyDataSetChanged();;
+                    for(int i = 0; i < categories.size(); i++) {
+                        ((ViewHolder)recyclerView.findViewHolderForAdapterPosition(i)).checked.setVisibility(View.INVISIBLE);
+                        ((ViewHolder)recyclerView.findViewHolderForAdapterPosition(i)).name.setTextColor(Color.parseColor("#808080"));
+                    }
+//                    viewHolder.checked.setVisibility(View.INVISIBLE);
+//                    viewHolder.name.setTextColor(Color.parseColor("#000000"));
+                    categoryListFragment.setSelectedCategory(null);
                 }
             }
         });
@@ -70,12 +78,14 @@ public class TagListRecyclerViewAdapter extends RecyclerView.Adapter<TagListRecy
 
     @Override
     public int getItemCount() {
-        if(tags != null) {
-            return tags.size();
+        if(categories != null) {
+            return categories.size();
         } else {
             return 0;
         }
     }
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView avatar;

@@ -1,16 +1,18 @@
 package mboss.tsm.Model;
 
-import android.annotation.SuppressLint;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
+
+import mboss.tsm.Utility.ConvertTagType;
+import mboss.tsm.Utility.ConvertType;
 
 //@SuppressLint("ParcelCreator")
 @Entity(tableName = "Diary")
@@ -22,6 +24,8 @@ public class Diary implements Parcelable {
     private int BossID;
     @ColumnInfo(name = "CategoryID")
     private int CategoryID;
+    @ColumnInfo(name = "CategoryImage")
+    private int categoryImage;
     @ColumnInfo(name = "Content")
     private String Content;
     @ColumnInfo(name = "DiaryTime")
@@ -32,10 +36,12 @@ public class Diary implements Parcelable {
     private String Image;
     @ColumnInfo(name = "NotifyChecked")
     private boolean NotifyChecked;
-    @Ignore
-    private List<Uri> UriImages;
-    @Ignore
-    private List<Tag> tageds;
+    @ColumnInfo(name = "Place")
+    private String Place;
+    @TypeConverters(ConvertType.class)
+    private List<String> UriImages;
+    @TypeConverters(ConvertTagType.class)
+    private List<Boss> tageds;
 
     public Diary(String content, String diaryTime) {
         Content = content;
@@ -54,12 +60,14 @@ public class Diary implements Parcelable {
         DiaryID = in.readInt();
         BossID = in.readInt();
         CategoryID = in.readInt();
+        categoryImage = in.readInt();
         Content = in.readString();
         DiaryTime = in.readString();
         Status = in.readByte() != 0;
         Image = in.readString();
         NotifyChecked = in.readByte() != 0;
-        UriImages = in.createTypedArrayList(Uri.CREATOR);
+        UriImages = in.createStringArrayList();
+        Place = in.readString();
     }
 
     public static final Creator<Diary> CREATOR = new Creator<Diary>() {
@@ -74,19 +82,35 @@ public class Diary implements Parcelable {
         }
     };
 
-    public List<Tag> getTageds() {
+    public String getPlace() {
+        return Place;
+    }
+
+    public void setPlace(String place) {
+        Place = place;
+    }
+
+    public int getCategoryImage() {
+        return categoryImage;
+    }
+
+    public void setCategoryImage(int categoryImage) {
+        this.categoryImage = categoryImage;
+    }
+
+    public List<Boss> getTageds() {
         return tageds;
     }
 
-    public void setTageds(List<Tag> tageds) {
+    public void setTageds(List<Boss> tageds) {
         this.tageds = tageds;
     }
 
-    public List<Uri> getUriImages() {
+    public List<String> getUriImages() {
         return UriImages;
     }
 
-    public void setUriImages(List<Uri> uriImages) {
+    public void setUriImages(List<String> uriImages) {
         UriImages = uriImages;
     }
 
@@ -161,14 +185,19 @@ public class Diary implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeInt(DiaryID);
         dest.writeInt(BossID);
         dest.writeInt(CategoryID);
+        dest.writeInt(categoryImage);
         dest.writeString(Content);
         dest.writeString(DiaryTime);
         dest.writeByte((byte) (Status ? 1 : 0));
         dest.writeString(Image);
         dest.writeByte((byte) (NotifyChecked ? 1 : 0));
-        dest.writeTypedList(UriImages);
+        dest.writeStringList(UriImages);
+        dest.writeString(Place);
     }
+
+
 }

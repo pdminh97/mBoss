@@ -5,6 +5,9 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import mboss.tsm.Model.Category;
+import mboss.tsm.Repository.CategoryRepository;
+import mboss.tsm.mboss.R;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,4 +32,6 @@ public class RetrofitBuilder {
         }
         return  retrofit;
     }
+
+
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -15,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import mboss.tsm.Fragment.BossDetailFragment;
+import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.RecyclerViewAdapter.DateListRecyclerViewAdapter;
@@ -48,6 +53,7 @@ public class DateListActivity extends AppCompatActivity {
     private int CATEGORYIDreturn;
     private int BOSSIDreturn;
     private int pos = -1;
+    private Boss tag_boss;
 
     private TextView message_empty;
     private ImageView image_mBoss;
@@ -70,6 +76,8 @@ public class DateListActivity extends AppCompatActivity {
         bossName = intent.getExtras().getString("BossName");
         bossCategory = (Category) intent.getSerializableExtra(BossDetailFragment.TITLE);
         bossID = intent.getExtras().getInt("BOSSID");
+        tag_boss = (Boss) intent.getSerializableExtra("boss_tag");
+
 //        on_off = (Switch) findViewById(R.id.on_off_notification);
 //        if (check) on_off.setChecked(true);
         title = findViewById(R.id.txtTitleCategory);
@@ -93,6 +101,7 @@ public class DateListActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.fragmentLayoutHistory);
 
     }
+
     public void iniatialData() {
         categotyID = bossCategory.getCategoryID();
         if (bossCategory.getName() != null) {
@@ -101,30 +110,31 @@ public class DateListActivity extends AppCompatActivity {
             title.setText(CATEGOTYreturn);
         }
         BossActivityRepository bossActivityRepository = new BossActivityRepository(DateListActivity.this);
-              bossActivityRepository.getDatePickedForBossActivity(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
-                    @Override
-                    public void CallBackSuccess(List<Diary> mBossDiaries) {
-                        if(mBossDiaries!=null){
-                        mBossActivity = mBossDiaries;}
-                        updateDateList(mBossActivity);
-                    }
+        bossActivityRepository.getDatePickedForBossActivity(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
+            @Override
+            public void CallBackSuccess(List<Diary> mBossDiaries) {
+                if (mBossDiaries != null) {
+                    mBossActivity = mBossDiaries;
+                }
+                updateDateList(mBossActivity);
+            }
 
-                    @Override
-                    public void CallBackFail(String message) {
-                    }
-                });
-              bossActivityRepository.getDatePickerForBossActivityCompleted(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
-                    @Override
-                    public void CallBackSuccess(List<Diary> mBossDiaries) {
-                     mBossActivityHistory = mBossDiaries;
-                     updateHistoryList(mBossDiaries);
-                    }
+            @Override
+            public void CallBackFail(String message) {
+            }
+        });
+        bossActivityRepository.getDatePickerForBossActivityCompleted(bossID, categotyID, new BossActivityRepository.getDataCallBack() {
+            @Override
+            public void CallBackSuccess(List<Diary> mBossDiaries) {
+                mBossActivityHistory = mBossDiaries;
+                updateHistoryList(mBossDiaries);
+            }
 
-                    @Override
-                    public void CallBackFail(String message) {
+            @Override
+            public void CallBackFail(String message) {
 
-                    }
-                });
+            }
+        });
 
         imCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +143,7 @@ public class DateListActivity extends AppCompatActivity {
                 //AddDateActivity back and return data
                 if (bossCategory.getName() != null) {
                     intent.putExtra("CATEGORY", bossCategory.getName());
+                    intent.putExtra("CATEGORY_IMAGE", bossCategory.getImage());
                 } else {
                     intent.putExtra("CATEGORY", CATEGOTYreturn);
                 }
@@ -148,6 +159,7 @@ public class DateListActivity extends AppCompatActivity {
                 }
                 if (bossID > -1) {
                     intent.putExtra("bossID", bossID);
+                    intent.putExtra("tag_boss", tag_boss);
                 } else {
                     intent.putExtra("bossID", BOSSIDreturn);
                 }
@@ -250,18 +262,64 @@ public class DateListActivity extends AppCompatActivity {
             CATEGORYIDreturn = data.getExtras().getInt("CATEGORY");
             BOSSIDreturn = data.getExtras().getInt("BOSSID");
             CHECK = data.getBooleanExtra("CHECK", false);
-            mBoss = (Diary) data.getSerializableExtra("mBoss");
+//            mBoss = (Diary) data.getSerializableExtra("mBoss");
+            Log.e("dât:", data.getExtras() + "");
+            mBoss = (Diary) data.getExtras().getParcelable("mBoss");
             if (mBoss != null) {
                 mBossActivity.add(mBoss);
                 adapter.notifyItemChanged(mBossActivity.size() - 1);
             }
+            resetActivity();
+            finish();
+
         }
 
     }
 
+
+    private Date parseDate(String date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.parse(date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static String parseDate(String inputDateString, SimpleDateFormat inputDateFormat, SimpleDateFormat outputDateFormat) {
+        Date date = null;
+        String outputDateString = null;
+        try {
+            date = inputDateFormat.parse(inputDateString);
+            outputDateString = outputDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateString;
+    }
     public void finishBossCategoryActivity(int pos) {
         BossActivityRepository bossActivityRepository = new BossActivityRepository(DateListActivity.this);
         Diary bossActivity = mBossActivity.get(pos);
+//
+//        String time = bossActivity.getDiaryTime();
+//        Date it = parseDate(time);
+////        Date date = parseDate(time);
+//        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        String date = parseDate(time, dateFormat, timeFormat);
+////        timeFormat.format(time);
+//        Calendar calendar = Calendar.getInstance();
+//        String timee = timeFormat.format(calendar.getTime());
+//        String dee = "";
+//        try {
+//            dee = dateFormat.format(it);
+//        } catch (Exception e) {
+//
+//        }
+
+
+//        bossActivity.setDiaryTime(dee + " " + timee);
         bossActivity.setStatus(true);
         bossActivityRepository.finishBossActivity(bossActivity, new BossActivityRepository.getStatusCallBack() {
             @Override

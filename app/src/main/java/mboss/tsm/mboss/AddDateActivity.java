@@ -19,9 +19,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import mboss.tsm.BroadcashReceiver.AlarmReceiver;
+import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.BossActivity;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.Repository.BossActivityRepository;
@@ -45,9 +48,12 @@ public class AddDateActivity extends AppCompatActivity {
     private static final String CHECK = "check";
     private ImageButton back;
     final Calendar calendar = Calendar.getInstance();
+    private EditText edtPlace;
 
     String category;
+    int category_image;
     String bossName;
+    Boss tag_boss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +63,11 @@ public class AddDateActivity extends AppCompatActivity {
 
         final Intent getIntent = getIntent();
         category = getIntent.getExtras().getString("CATEGORY");
+        category_image = getIntent.getExtras().getInt("CATEGORY_IMAGE");
         bossName = getIntent.getExtras().getString("BOSSNAME");
         categoryID = getIntent.getExtras().getInt("categoryID");
         bossID = getIntent.getExtras().getInt("bossID");
+        tag_boss = (Boss) getIntent.getExtras().getSerializable("tag_boss");
         initialView();
         initialData();
     }
@@ -84,17 +92,32 @@ public class AddDateActivity extends AppCompatActivity {
         bell = findViewById(R.id.bell);
         status_notification = findViewById(R.id.status_notification);
         back = findViewById(R.id.btn_back);
+        edtPlace = findViewById(R.id.edt_place);
     }
 
     public void clickToAdd(View view) {
         newBossActivity = new Diary();
         Log.e("ER", datePicker.getText().toString()+" "+timePicker.getText().toString());
         newBossActivity.setDiaryTime(datePicker.getText().toString()+" "+timePicker.getText().toString());
-        newBossActivity.setContent(note.getText().toString());
+        String content = "";
+        if(edtPlace.getText().toString() != null) {
+            content += "Địa điểm: ";
+            content += edtPlace.getText().toString();
+            content += "\n";
+        }
+        if(note.getText().toString() != null) {
+            content += "Nội dung: ";
+            content += note.getText().toString();
+        }
+        newBossActivity.setContent(content);
 //        newBossActivity.setTime(timePicker.getText().toString());
         newBossActivity.setNotifyChecked(check);
         newBossActivity.setCategoryID(categoryID);
+        newBossActivity.setCategoryImage(category_image);
         newBossActivity.setBossID(bossID);
+        List<Boss> taglist = new ArrayList<>();
+        taglist.add(tag_boss);
+        newBossActivity.setTageds(taglist);
         newBossActivity.setStatus(false);
         BossActivityRepository bossActivityRepository = new BossActivityRepository(AddDateActivity.this);
         bossActivityRepository.insertDatePickerToDiary(newBossActivity);

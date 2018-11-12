@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.Tag;
 import mboss.tsm.RecyclerViewAdapter.TagListRecyclerViewAdapter;
 import mboss.tsm.RecyclerViewAdapter.TagingRecyclerViewAdapter;
+import mboss.tsm.Repository.BossRepository;
 import mboss.tsm.mboss.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -26,9 +29,11 @@ import static android.app.Activity.RESULT_OK;
 public class TagListFragment extends Fragment {
     private RecyclerView rvTagList;
     private Button btnCancelTag;
-    private List<Tag> tagingList;
+    private List<Boss> tagingList;
     private RecyclerView rvTaging;
     private Button btnSaveTag;
+    private List<Boss> tagList;
+    private TagingRecyclerViewAdapter tagingRecyclerViewAdapter;
 
     public TagListFragment() {
 
@@ -42,14 +47,12 @@ public class TagListFragment extends Fragment {
         tagingList = new ArrayList<>();
 
         rvTaging = view.findViewById(R.id.rvTaging);
-        TagingRecyclerViewAdapter tagingRecyclerViewAdapter = new TagingRecyclerViewAdapter(getContext(), tagingList);
+        tagingRecyclerViewAdapter = new TagingRecyclerViewAdapter(getContext(), tagingList);
         rvTaging.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvTaging.setAdapter(tagingRecyclerViewAdapter);
 
+        getBossList();
         rvTagList = view.findViewById(R.id.rvTagList);
-        TagListRecyclerViewAdapter adapter = new TagListRecyclerViewAdapter(getContext(), tagingList, tagingRecyclerViewAdapter);
-        rvTagList.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvTagList.setAdapter(adapter);
 
 
 
@@ -73,6 +76,24 @@ public class TagListFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void getBossList() {
+        BossRepository bossRepository = new BossRepository(getActivity());
+        bossRepository.getAllBosses(new BossRepository.getDataCallBack() {
+            @Override
+            public void CallBackSuccess(List<Boss> mBosses) {
+                tagList = mBosses;
+                TagListRecyclerViewAdapter adapter = new TagListRecyclerViewAdapter(tagList ,getContext(), tagingList, tagingRecyclerViewAdapter);
+                rvTagList.setLayoutManager(new LinearLayoutManager(getContext()));
+                rvTagList.setAdapter(adapter);
+            }
+
+            @Override
+            public void CallBackFail(String message) {
+
+            }
+        });
     }
 
     private void closeTagList() {

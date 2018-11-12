@@ -173,6 +173,7 @@ public class BossDetailFragment extends Fragment {
         bundle.putInt("Position", postion);
         bundle.putString("BossName", bossName);
         bundle.putSerializable(TITLE, bossCategory);
+        bundle.putSerializable("boss_tag", mBoss);
         bundle.putInt("ID", BossId);
         bundle.putSerializable("bundle", (Serializable) bossCategories);
         intent.putExtras(bundle);

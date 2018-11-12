@@ -6,8 +6,10 @@ import mboss.tsm.Model.Clinic;
 import mboss.tsm.Model.Comment;
 import mboss.tsm.Model.Service;
 import mboss.tsm.Model.Token;
+import mboss.tsm.Model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -17,9 +19,13 @@ import retrofit2.http.Query;
 
 public interface IService {
 
+    /* Account API */
     @POST("/token")
     @FormUrlEncoded
     Call<Token> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String grant_type);
+
+    @POST("/api/accounts")
+    Call<Boolean> register(@Body User user);
 
 
     /* Service API */

@@ -18,6 +18,7 @@ import mboss.tsm.Model.BossCategory;
 import mboss.tsm.Model.Category;
 import mboss.tsm.RecyclerViewAdapter.CategoryListRecyclerViewAdapter;
 import mboss.tsm.Repository.BossCategoryRepository;
+import mboss.tsm.Repository.CategoryRepository;
 
 
 public class CategoryListActivity extends AppCompatActivity {
@@ -53,27 +54,25 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private void initialData() {
         categories = new ArrayList<>();
-        Category category1 = new Category(1,R.mipmap.tam, "Tắm");
-        Category category2 = new Category(2,R.mipmap.tia, "Tỉa Lông");
-        Category category3 = new Category(3,R.mipmap.mong, "Cắt móng");
-        Category category4 = new Category(4,R.mipmap.an, "Cho ăn");
-        Category category5 = new Category(5,R.mipmap.tiem, "Tiêm");
-        Category category6 = new Category(6,R.mipmap.thuoc, "Uống thuốc");
-        Category category7 = new Category(7,R.mipmap.kham, "Khám định kỳ");
-        categories.add(category1);
-        categories.add(category2);
-        categories.add(category3);
-        categories.add(category4);
-        categories.add(category5);
-        categories.add(category6);
-        categories.add(category7);
+        CategoryRepository categoryRepository = new CategoryRepository(getApplicationContext());
+        categoryRepository.getCategories(new CategoryRepository.DataCallBack() {
+            @Override
+            public void CallBackSuccess(List<Category> categoriesCallback) {
+                categories = categoriesCallback;
+                update();
+            }
+
+            @Override
+            public void CallBackFail(String message) {
+
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        update();
     }
 
     private void update() {

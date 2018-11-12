@@ -82,7 +82,8 @@
 
         <activity android:name=".BossActivityDateDetail" />
         <activity android:name=".BossEditDateActivity" />
-        <activity android:name=".HistoryDetailActivity"></activity>
+        <activity android:name=".HistoryDetailActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>

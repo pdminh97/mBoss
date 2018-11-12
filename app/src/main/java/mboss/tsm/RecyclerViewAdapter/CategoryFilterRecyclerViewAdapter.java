@@ -13,30 +13,30 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mboss.tsm.Model.Boss;
-import mboss.tsm.Model.Tag;
+import mboss.tsm.Model.Category;
 import mboss.tsm.mboss.R;
 
-public class TagedRecyclerViewAdapter extends RecyclerView.Adapter<TagedRecyclerViewAdapter.ViewHolder> {
-    private List<Boss> tags;
+public class CategoryFilterRecyclerViewAdapter extends RecyclerView.Adapter<CategoryFilterRecyclerViewAdapter.ViewHolder> {
+    private List<Category> categories;
     private Context context;
 
-    public TagedRecyclerViewAdapter(Context context, List<Boss> tags) {
+    public CategoryFilterRecyclerViewAdapter(Context context, List<Category> categories) {
         this.context = context;
-        this.tags = tags;
+        this.categories = categories;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.taged_item, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.category_filter_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Glide.with(context)
-                .load(tags.get(i).getPictures())
+                .load(categories.get(i).getImage())
                 .placeholder(R.drawable.picture)
                 .dontAnimate()
                 .into(viewHolder.civAvatar);
@@ -44,8 +44,8 @@ public class TagedRecyclerViewAdapter extends RecyclerView.Adapter<TagedRecycler
 
     @Override
     public int getItemCount() {
-        if(tags != null) {
-            return tags.size();
+        if(categories != null) {
+            return categories.size();
         } else {
             return 0;
         }

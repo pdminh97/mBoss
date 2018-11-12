@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lịch thông báo hoạt động"
+            android:text="Hoạt động"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="20dp"
@@ -82,7 +82,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lịch sử hoạt động"
+            android:text="Hoàn thành"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="20dp"

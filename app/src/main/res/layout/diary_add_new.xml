@@ -58,6 +58,10 @@
                             android:layout_height="match_parent"
                             android:background="#ffffff"
                             android:orientation="vertical">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/category_diary"/>
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -73,27 +77,6 @@
                                 android:id="@+id/edtDiaryContent"
                                 android:hint="Hôm nay hoàng thượng của bạn thế nào?"/>
 
-                            <!--<LinearLayout-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="horizontal">-->
-                                <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                                    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                                    <!--android:layout_width="30dp"-->
-                                    <!--android:layout_height="30dp"-->
-                                    <!--android:src="@drawable/cat_avt"-->
-                                    <!--app:civ_border_width="2dp"-->
-                                    <!--app:civ_border_color="#FF000000"-->
-                                    <!--android:layout_marginRight="5dp"/>-->
-                                <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                                    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                                    <!--android:layout_width="30dp"-->
-                                    <!--android:layout_height="30dp"-->
-                                    <!--android:src="@drawable/dog_avt"-->
-                                    <!--app:civ_border_width="2dp"-->
-                                    <!--app:civ_border_color="#FF000000"-->
-                                    <!--android:layout_marginRight="5dp"/>-->
-                            <!--</LinearLayout>-->
 
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
@@ -109,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_horizontal"
-                    android:weightSum="2">
+                    android:weightSum="3">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -151,6 +134,26 @@
                             android:textSize="20dp"
                             android:layout_marginLeft="10dp"/>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/lnCategory">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/list"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Thể Loại"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            android:layout_marginLeft="10dp"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -159,10 +162,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/tag_boss_list_container">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/category_list_container">
         </FrameLayout>
     </FrameLayout>
 

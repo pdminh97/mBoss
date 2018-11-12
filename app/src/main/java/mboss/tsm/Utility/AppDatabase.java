@@ -1,36 +1,64 @@
 package mboss.tsm.Utility;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import mboss.tsm.DAO.BossActivityDAO;
 import mboss.tsm.DAO.BossCategoryDAO;
 import mboss.tsm.DAO.BossDAO;
+import mboss.tsm.DAO.CategoryDAO;
 import mboss.tsm.DAO.DiaryDAO;
 import mboss.tsm.DAO.UserDAO;
 import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.BossActivity;
 import mboss.tsm.Model.BossCategory;
+import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.Model.User;
+import mboss.tsm.mboss.R;
 
-@Database(entities = {Boss.class, User.class,  BossCategory.class, BossActivity.class, Diary.class}, version = 1, exportSchema = false)
+@Database(entities = {Boss.class, User.class, BossCategory.class, BossActivity.class, Diary.class, Category.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase appDatabase;
 
     public abstract UserDAO userDAO();
+
     public abstract BossDAO bossDAO();
+
     public abstract DiaryDAO diaryDAO();
+
     public abstract BossCategoryDAO bossCategoryDAO();
+
     public abstract BossActivityDAO bossActivityDAO();
 
-    public static AppDatabase getInstance(Context context) {
+    public abstract CategoryDAO categoryDAO();
+
+    public static AppDatabase getInstance(final Context context) {
         if (appDatabase == null) {
             appDatabase = Room.databaseBuilder(context, AppDatabase.class, "mBoss")
-                    .fallbackToDestructiveMigration().build();
+                    .addCallback(new Callback() {
+                        @Override
+                        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                            super.onCreate(db);
+                            Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getInstance(context).categoryDAO().insertAllCategory(Category.initCategoryData());
+                                }
+                            });
+                        }
+                    })
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
         return appDatabase;
     }

@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import mboss.tsm.Fragment.DiaryFragment;
 import mboss.tsm.Model.Diary;
 import mboss.tsm.mboss.R;
@@ -39,6 +42,9 @@ public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecycler
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.time.setText(diaries.get(i).getDiaryTime());
+        Glide.with(context).load(diaries.get(i).getCategoryImage())
+                .dontAnimate()
+                .into(viewHolder.civCategory);
         viewHolder.content.setText(diaries.get(i).getContent());
         viewHolder.imageAdapter = new DiaryImageRecyclerViewAdapter(context, diaries.get(i).getUriImages());
         viewHolder.rvImage.setAdapter(viewHolder.imageAdapter);
@@ -68,6 +74,7 @@ public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecycler
         RecyclerView rvImage;
         RecyclerView rvTag;
         ImageView threedot;
+        CircleImageView civCategory;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.diary_item_time);
@@ -75,6 +82,7 @@ public class DiaryRecyclerViewAdapter extends RecyclerView.Adapter<DiaryRecycler
             rvImage = itemView.findViewById(R.id.rvDiaryImage);
             rvTag = itemView.findViewById(R.id.rvDiaryTag);
             threedot = itemView.findViewById(R.id.threedot);
+            civCategory = itemView.findViewById(R.id.civCategory);
             rvImage.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             rvTag.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }

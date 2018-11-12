@@ -15,8 +15,11 @@ public interface DiaryDAO {
     @Insert
     public void insertDiary(Diary diary);
 
-    @Query("SELECT * FROM Diary")
+    @Query("SELECT * FROM Diary where Status = 1 and DiaryTime <= date('now') order by date(DiaryTime) desc")
     public List<Diary> getDiaries();
+
+    @Update
+    public void update(Diary diary);
 
     @Query("SELECT * FROM Diary where BossID =:BossID and CategoryID =:CategoryID and Status = 0 order by DiaryID desc")
     public List<Diary> getDatePickedForBossActivity(int BossID, int CategoryID);

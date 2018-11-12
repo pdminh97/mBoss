@@ -17,6 +17,8 @@ import mboss.tsm.Fragment.DiaryFragment;
 import mboss.tsm.Fragment.MyBossesFragment;
 import mboss.tsm.Fragment.ProfileFragment;
 import mboss.tsm.Model.Boss;
+import mboss.tsm.Model.Category;
+import mboss.tsm.Repository.CategoryRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment fragment;
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
 
@@ -55,15 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_place, new DiaryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_place, new DiaryFragment()).commit();
     }
-
-
 
     public void clickToViewProfile(View view) {
 

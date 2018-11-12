@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,10 @@ import java.util.List;
 import mboss.tsm.mboss.R;
 
 public class DiaryImageRecyclerViewAdapter extends RecyclerView.Adapter<DiaryImageRecyclerViewAdapter.ViewHolder> {
-    private List<Uri> imageUris;
+    private List<String> imageUris;
     private Context context;
 
-    public DiaryImageRecyclerViewAdapter(Context context, List<Uri> imageUris) {
+    public DiaryImageRecyclerViewAdapter(Context context, List<String> imageUris) {
         this.imageUris = imageUris;
         this.context = context;
     }
@@ -36,8 +37,9 @@ public class DiaryImageRecyclerViewAdapter extends RecyclerView.Adapter<DiaryIma
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(viewHolder.imageView);
+        Log.e("ER", Uri.parse(imageUris.get(i)).toString());
         Glide.with(context)
-                .load(imageUris.get(i))
+                .load(Uri.parse(imageUris.get(i)))
                 .placeholder(R.drawable.picture)
                 .dontAnimate()
                 .into(target);

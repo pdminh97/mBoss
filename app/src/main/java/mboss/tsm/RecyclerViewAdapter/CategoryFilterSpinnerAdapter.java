@@ -13,32 +13,32 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mboss.tsm.Model.Boss;
-import mboss.tsm.Model.Tag;
+import mboss.tsm.Model.Category;
 import mboss.tsm.mboss.R;
 
-public class TagFilterSpinnerAdapter extends BaseAdapter {
-    List<Boss> tags;
+public class CategoryFilterSpinnerAdapter extends BaseAdapter {
+    List<Category> categories;
     Context context;
 
-    public TagFilterSpinnerAdapter(List<Boss> tags, Context context) {
-        this.tags = tags;
+    public CategoryFilterSpinnerAdapter(List<Category> tags, Context context) {
+        this.categories = tags;
         this.context = context;
-        Boss firstTag = new Boss();
-        firstTag.setBossName("Tất Cả");
+        Category firstTag = new Category();
+        firstTag.setName("Tất Cả");
         tags.add(0, firstTag);
     }
 
     @Override
     public int getCount() {
-        if(tags != null)
-            return tags.size();
+        if(categories != null)
+            return categories.size();
         else
             return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return tags.get(position);
+        return categories.get(position);
     }
 
     @Override
@@ -51,11 +51,11 @@ public class TagFilterSpinnerAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.tag_filter_item, parent, false);
         CircleImageView circleImageView = view.findViewById(R.id.tagFilterImage);
-        Glide.with(context).load(tags.get(position).getPictures())
+        Glide.with(context).load(categories.get(position).getImage())
                 .dontAnimate()
                 .into(circleImageView);
         TextView textView = view.findViewById(R.id.tagFilterName);
-        textView.setText(tags.get(position).getBossName());
+        textView.setText(categories.get(position).getName());
         return view;
     }
 }

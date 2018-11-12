@@ -19,9 +19,9 @@
         android:id="@+id/image_avata"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@mipmap/avata"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="80dp"
+        android:background="@mipmap/avata"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"/>
     <EditText
-        android:gravity="left|center"
+        android:gravity="center_vertical"
         android:id="@+id/edtName"
         android:layout_width="350dp"
         android:layout_height="30dp"
