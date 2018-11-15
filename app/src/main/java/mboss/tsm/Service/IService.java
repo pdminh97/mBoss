@@ -2,6 +2,8 @@ package mboss.tsm.Service;
 
 import java.util.List;
 
+import mboss.tsm.Model.Account;
+import mboss.tsm.Model.Category;
 import mboss.tsm.Model.Clinic;
 import mboss.tsm.Model.Comment;
 import mboss.tsm.Model.Service;
@@ -23,9 +25,8 @@ public interface IService {
     @POST("/token")
     @FormUrlEncoded
     Call<Token> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String grant_type);
-
     @POST("/api/accounts")
-    Call<Boolean> register(@Body User user);
+    Call<Integer> register(@Body Account account);
 
 
     /* Service API */
@@ -33,7 +34,6 @@ public interface IService {
     Call<List<Service>> searchService(@Query("search") String search);
     @GET("/api/services/top_point")
     Call<List<Service>> getTopService();
-
     @GET("api/services/clinic/{clinicID}")
     Call<List<Service>> getServicesByClinicID(@Path("clinicID") int clinicID);
 
@@ -56,4 +56,10 @@ public interface IService {
     /* Image API */
     @GET("Asset/Image/Clinic/{imageName}")
     Call<ResponseBody> getClinicImage(@Path("imageName") String imageName);
+
+    /* Category API */
+    @GET("api/categories/{version}")
+    Call<Integer> checkCategoryVersion(@Path("version") int version);
+    @GET("api/categories/")
+    Call<List<Category>> getCategories();
 }

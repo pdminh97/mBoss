@@ -1,5 +1,7 @@
 package mboss.tsm.Utility;
 
-public class Constant {
+import mboss.tsm.Model.Token;
 
+public class Constant {
+    public static Token token = null;
 }

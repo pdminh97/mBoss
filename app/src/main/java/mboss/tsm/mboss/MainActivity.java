@@ -19,6 +19,7 @@ import mboss.tsm.Fragment.ProfileFragment;
 import mboss.tsm.Model.Boss;
 import mboss.tsm.Model.Category;
 import mboss.tsm.Repository.CategoryRepository;
+import mboss.tsm.Repository.VersionRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //checkUpdateCategory();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_place, new DiaryFragment()).commit();
@@ -65,5 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    public void checkUpdateCategory() {
+        VersionRepository versionRepository = new VersionRepository(getApplicationContext());
+        versionRepository.checkCategoryVersion();
+    }
 }

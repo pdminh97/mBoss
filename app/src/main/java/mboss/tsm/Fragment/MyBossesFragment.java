@@ -87,7 +87,10 @@ public class MyBossesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == AddNewBossActivity.RESULT_OK && data != null) {
-                iniatialData();
+                Boss boss = (Boss) data.getSerializableExtra("mBoss");
+                mListBoss.add(boss);
+                mAdapter.notifyItemInserted(mListBoss.size() - 1);
+                //iniatialData();
         }
         iniatialData();
     }

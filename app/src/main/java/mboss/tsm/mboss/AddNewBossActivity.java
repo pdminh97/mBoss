@@ -83,6 +83,8 @@ public class AddNewBossActivity extends AppCompatActivity implements View.OnClic
         listOption.add("Loại thú cưng");
         listOption.add("Chó");
         listOption.add("Mèo");
+        listOption.add("Chim");
+        listOption.add("Sóc");
         listOption.add("Loại khác");
 
         List<String> listGender = new ArrayList<>();

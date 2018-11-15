@@ -1,6 +1,7 @@
 package mboss.tsm.DAO;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -29,4 +30,7 @@ public interface DiaryDAO {
 
     @Update
     public void completeBossActivity(Diary... diaries);
+
+    @Delete
+    public void removeDiary(Diary diary);
 }

@@ -181,7 +181,7 @@ public class DateListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void updateDateList(List<Diary> mBossActivityList) {
+    public void updateDateList(final List<Diary> mBossActivityList) {
         if (adapter == null) {
             adapter = new DateListRecyclerViewAdapter(mBossActivityList, DateListActivity.this);
             mRecyclerView.setAdapter(adapter);
@@ -190,6 +190,7 @@ public class DateListActivity extends AppCompatActivity {
                 public void setOnIteamListener(int position) {
 //                    DialogDoneActivity(position);
                     Intent intent = new Intent(DateListActivity.this, BossActivityDateDetail.class);
+                    intent.putExtra("bossActivity", mBossActivityList.get(position));
                     startActivityForResult(intent, 1);
                 }
             });

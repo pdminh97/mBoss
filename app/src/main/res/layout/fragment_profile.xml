@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:id="@+id/profileView">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -177,7 +178,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:id="@+id/loginView">
 
         <LinearLayout
             android:id="@+id/logo"
@@ -199,10 +201,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tài Khoản"/>
+            android:text="Số Điện Thoại"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@id/txtPhone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -210,15 +213,17 @@
             android:text="Mật Khẩu"/>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPassword"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@color/home_color"
+            android:background="#4286f4"
             android:text="Đăng Nhập"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:id="@+id/btnLogin"/>
 
         <LinearLayout
             android:layout_width="match_parent"

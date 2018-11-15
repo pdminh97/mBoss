@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.facebook.accountkit.ui.LoginType;
 
 import mboss.tsm.Model.User;
 import mboss.tsm.Profile.LoginActivity;
+import mboss.tsm.Repository.AccountRepository;
 import mboss.tsm.Repository.UserReponsitory;
 import mboss.tsm.mboss.R;
 import mboss.tsm.mboss.RegisterActivity;
@@ -39,13 +41,39 @@ public class ProfileFragment extends Fragment {
     private Button change_information;
     private ImageView avatar;
     private TextView register;
+    private Button btnLogin;
+    private LinearLayout profileView;
+    private LinearLayout loginView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         UserReponsitory userReponsitory = new UserReponsitory(getActivity());
+
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        profileView = view.findViewById(R.id.profileView);
+        loginView = view.findViewById(R.id.loginView);
+
+        final AccountRepository accountRepository = new AccountRepository(getContext());
+        accountRepository.getCurrentAccount(new AccountRepository.GetAccountCallBack() {
+            @Override
+            public void CallBackSuccess(mboss.tsm.Model.Account account) {
+                if(account != null) {
+                    profileView.setVisibility(View.VISIBLE);
+                    loginView.setVisibility(View.GONE);
+                } else {
+                    profileView.setVisibility(View.GONE);
+                    loginView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void CallBackFail(String message) {
+
+            }
+        });
+
         phone = (TextView) view.findViewById(R.id.txtPhone);
         username = (TextView) view.findViewById(R.id.txtUsernameTitle);
         email = (TextView) view.findViewById(R.id.txtMail);
@@ -68,12 +96,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        btnLogin = view.findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView phone = view.findViewById(R.id.txtPhone);
+                TextView pw = view.findViewById(R.id.txtPassword);
+                if(!(phone.getText().toString() == "" || pw.getText().toString() == "")) {
+                    accountRepository.login(phone.getText().toString(), pw.getText().toString());
+                }
+            }
+        });
+
         userReponsitory.getmUserInfo(new UserReponsitory.OnDataCallBackUser() {
             @Override
             public void onDataSuccess(User user) {
                 Log.e("User: ", user.username + "");
                 Log.e("Phone: ", user.phoneNumber + "");
-                if(user != null) {
+                if (user != null) {
                     phone.setText(user.getPhoneNumber());
                     username.setText(user.getUsername());
                     if (user.getEmail() != null) {
@@ -82,6 +122,7 @@ public class ProfileFragment extends Fragment {
                     avatar.setImageURI(Uri.parse(user.getPicture()));
                 }
             }
+
             @Override
             public void onDataFail() {
 
@@ -93,7 +134,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1) {
+        if (requestCode == 1) {
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
             if (loginResult.getError() != null) {
                 //toastMessage = loginResult.getError().getErrorType().getMessage();

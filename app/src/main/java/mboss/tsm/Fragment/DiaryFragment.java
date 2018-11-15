@@ -105,6 +105,8 @@ public class DiaryFragment extends Fragment {
                             .setCancelable(false)
                             .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    DiaryRepository repository = new DiaryRepository(getContext());
+                                    repository.removeDiary(diaries.get(position));
                                     diaries.remove(position);
                                     adapter.notifyItemRemoved(position);
                                     modifyDiaryContainer.setVisibility(View.GONE);

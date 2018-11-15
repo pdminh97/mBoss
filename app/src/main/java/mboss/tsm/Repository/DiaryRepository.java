@@ -31,6 +31,11 @@ public class DiaryRepository {
         updateDiaryAsync.execute();
     }
 
+    public void removeDiary(Diary diary) {
+        RemoveDiaryAsync removeDiaryAsync = new RemoveDiaryAsync(diaryDAO, diary);
+        removeDiaryAsync.execute();
+    }
+
 
     private class GetDiaryAsync extends AsyncTask<Void, Void, List<Diary>> {
         private DiaryDAO diaryDAO;
@@ -81,6 +86,22 @@ public class DiaryRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             diaryDAO.update(newDiary);
+            return null;
+        }
+    }
+
+    private class RemoveDiaryAsync extends AsyncTask<Void, Void, Void> {
+        private DiaryDAO diaryDAO;
+        private Diary removeDiary;
+
+        public RemoveDiaryAsync(DiaryDAO diaryDAO, Diary removeDiary) {
+            this.diaryDAO = diaryDAO;
+            this.removeDiary = removeDiary;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            diaryDAO.removeDiary(removeDiary);
             return null;
         }
     }

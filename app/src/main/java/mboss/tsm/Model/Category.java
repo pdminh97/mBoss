@@ -6,6 +6,9 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.util.Log;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import mboss.tsm.mboss.R;
@@ -14,9 +17,15 @@ import mboss.tsm.mboss.R;
 public class Category  implements Serializable {
     @PrimaryKey()
     @ColumnInfo(name = "CategoryID")
+    @SerializedName("ActivityCategoryID")
+    @Expose
     private  int categoryID;
+    @SerializedName("ActivityCategoryImage")
+    @Expose
     @ColumnInfo(name = "Image")
     private  int image;
+    @SerializedName("ActivityCategoryName")
+    @Expose
     @ColumnInfo(name = "Name")
     private  String name;
 
